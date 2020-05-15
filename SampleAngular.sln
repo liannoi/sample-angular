@@ -3,7 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAngular.Domain", "SampleAngular.Domain\SampleAngular.Domain.csproj", "{1DAC7D24-27FD-4C40-A394-84ADC098CB55}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{95406F9A-6D04-48BA-83F8-0BAA46483FDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "system", "system", "{6B12D0C0-2348-4E70-8984-CAB0E1D6A21D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "presentation", "presentation", "{9913A8D1-B58C-43D3-8B6D-2BCC39D643B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{AE078B0A-F8B6-4DBE-BC8E-7728C07BB059}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{88467680-8037-46EE-A354-C09B1FC2B611}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit", "unit", "{4E576FA2-FDBA-413F-B9AD-E1E6FF3F5699}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "functional", "functional", "{344A9FB5-4E51-443B-9B00-2E0171D54274}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "integration", "integration", "{43A8790B-3EBB-48F9-B697-376746CE20F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +25,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1DAC7D24-27FD-4C40-A394-84ADC098CB55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1DAC7D24-27FD-4C40-A394-84ADC098CB55}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1DAC7D24-27FD-4C40-A394-84ADC098CB55}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1DAC7D24-27FD-4C40-A394-84ADC098CB55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E5C186DE-3A01-44CF-84CE-D4945687971C}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6B12D0C0-2348-4E70-8984-CAB0E1D6A21D} = {95406F9A-6D04-48BA-83F8-0BAA46483FDD}
+		{9913A8D1-B58C-43D3-8B6D-2BCC39D643B0} = {95406F9A-6D04-48BA-83F8-0BAA46483FDD}
+		{AE078B0A-F8B6-4DBE-BC8E-7728C07BB059} = {6B12D0C0-2348-4E70-8984-CAB0E1D6A21D}
+		{4E576FA2-FDBA-413F-B9AD-E1E6FF3F5699} = {88467680-8037-46EE-A354-C09B1FC2B611}
+		{344A9FB5-4E51-443B-9B00-2E0171D54274} = {88467680-8037-46EE-A354-C09B1FC2B611}
+		{43A8790B-3EBB-48F9-B697-376746CE20F7} = {88467680-8037-46EE-A354-C09B1FC2B611}
 	EndGlobalSection
 EndGlobal
