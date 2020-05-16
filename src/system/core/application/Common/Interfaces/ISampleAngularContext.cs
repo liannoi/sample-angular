@@ -10,7 +10,7 @@ namespace SampleAngular.Application.Common.Interfaces
         DbSet<Manufacturers> Manufacturers { get; set; }
         DbSet<ProductPhotos> ProductPhotos { get; set; }
         DbSet<Products> Products { get; set; }
-        
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

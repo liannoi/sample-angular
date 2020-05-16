@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAngular.Infrastructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAngular.Application", "src\system\core\application\SampleAngular.Application.csproj", "{BBCC4C83-D4B8-4B85-BE44-6BFFF2F17464}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAngular.WebAPI", "src\api\SampleAngular.WebAPI.csproj", "{3C62BC69-7BF9-4071-B741-9CA299EF321A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{BBCC4C83-D4B8-4B85-BE44-6BFFF2F17464}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBCC4C83-D4B8-4B85-BE44-6BFFF2F17464}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBCC4C83-D4B8-4B85-BE44-6BFFF2F17464}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C62BC69-7BF9-4071-B741-9CA299EF321A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C62BC69-7BF9-4071-B741-9CA299EF321A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C62BC69-7BF9-4071-B741-9CA299EF321A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C62BC69-7BF9-4071-B741-9CA299EF321A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +66,6 @@ Global
 		{086C32C4-AA6C-4DEF-A443-A7F57D2D6DAA} = {AE078B0A-F8B6-4DBE-BC8E-7728C07BB059}
 		{A4807FCA-DA09-4972-AEB2-2A938F8032F9} = {6B12D0C0-2348-4E70-8984-CAB0E1D6A21D}
 		{BBCC4C83-D4B8-4B85-BE44-6BFFF2F17464} = {AE078B0A-F8B6-4DBE-BC8E-7728C07BB059}
+		{3C62BC69-7BF9-4071-B741-9CA299EF321A} = {95406F9A-6D04-48BA-83F8-0BAA46483FDD}
 	EndGlobalSection
 EndGlobal
