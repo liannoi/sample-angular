@@ -4,9 +4,9 @@ using SampleAngular.Domain.Entities;
 
 namespace SampleAngular.Infrastructure.Persistence.Configurations
 {
-    public class ProductConfiguration : IEntityTypeConfiguration<Products>
+    public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
-        public void Configure(EntityTypeBuilder<Products> builder)
+        public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.HasKey(e => e.ProductId);
             builder.HasIndex(e => e.Name).HasName("UNQ_Products_Name").IsUnique();

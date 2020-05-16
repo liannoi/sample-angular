@@ -2,16 +2,16 @@
 
 namespace SampleAngular.Domain.Entities
 {
-    public class Manufacturers
+    public class Manufacturer
     {
-        public Manufacturers()
+        public Manufacturer()
         {
-            Products = new HashSet<Products>();
+            Products = new HashSet<Product>();
         }
 
         public int ManufacturerId { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Products> Products { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }

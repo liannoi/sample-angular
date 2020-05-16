@@ -9,9 +9,15 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Common\Behaviours" />
       <Folder Include="Common\Exceptions" />
-      <Folder Include="Common\Mappings" />
+      <Folder Include="Storage\Manufacturers\Commands\Create" />
+      <Folder Include="Storage\Manufacturers\Commands\Delete" />
+      <Folder Include="Storage\Manufacturers\Commands\Update" />
+      <Folder Include="Storage\Manufacturers\Queries\Get" />
+      <Folder Include="Storage\ProductPhotos\Commands\Create" />
+      <Folder Include="Storage\ProductPhotos\Commands\Delete" />
+      <Folder Include="Storage\ProductPhotos\Commands\Update" />
+      <Folder Include="Storage\ProductPhotos\Queries\Get" />
     </ItemGroup>
 
     <ItemGroup>

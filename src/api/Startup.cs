@@ -25,8 +25,6 @@ namespace SampleAngular.WebAPI
             services.AddApplication();
             services.AddInfrastructure(Configuration);
 
-            services.AddHttpContextAccessor();
-
             services.AddHealthChecks().AddDbContextCheck<SampleAngularContext>();
 
             services.AddControllers();
@@ -48,12 +46,7 @@ namespace SampleAngular.WebAPI
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    "default",
-                    "{controller}/{action=Index}/{id?}");
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }

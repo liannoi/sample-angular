@@ -6,6 +6,6 @@
         public int ProductId { get; set; }
         public string Path { get; set; }
 
-        public Products Product { get; set; }
+        public Product Product { get; set; }
     }
 }

@@ -15,9 +15,9 @@ namespace SampleAngular.Infrastructure.Persistence
         {
         }
 
-        public DbSet<Manufacturers> Manufacturers { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<ProductPhotos> ProductPhotos { get; set; }
-        public DbSet<Products> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public async Task BeginTransactionAsync()
         {
