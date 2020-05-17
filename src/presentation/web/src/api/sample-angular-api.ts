@@ -5,7 +5,7 @@ import {delay} from 'rxjs/operators';
 
 import {AbstractApiService} from './abstract-api.service';
 
-const apiAddress: string = 'https://localhost:5001/api';
+const apiAddress: string = 'http://liannoi01-001-site1.htempurl.com/api';
 
 export interface ManufacturerModel {
   manufacturerId: number;
