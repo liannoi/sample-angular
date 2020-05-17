@@ -1,0 +1,61 @@
+<div *ngIf="viewModel.products.length != 0; else loadingAlert">
+  <div class="row mt-5 mb-4 text-center">
+    <div class="col-sm-12">
+      <h2>Products</h2>
+    </div>
+  </div>
+
+  <div class="row mb-4 text-center">
+    <div class="col-sm-12">
+      <a [routerLink]="['/products/create']" class="link-create btn btn-primary text-white disabled">Create</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="offset-sm-3"></div>
+    <div class="col-sm-6">
+      <table class="table border table-striped table-sm">
+        <thead class="thead-light table-bordered">
+        <tr>
+          <th>Name</th>
+          <th class="text-black-50">Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let product of viewModel.products;">
+
+          <td>{{product.name}}</td>
+
+          <td>
+            <a class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder disabled">
+              <fa-icon [icon]="faPen" class="pr-1"></fa-icon>
+              Edit
+            </a>
+
+            <a [routerLink]="['/manufacturers']"
+               class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder disabled">
+              <fa-icon [icon]="faInfo" class="pr-1"></fa-icon>
+              Details
+            </a>
+
+            <a class="btn btn-light border btn-sm pl-3 pr-3 font-weight-bolder disabled">
+              <fa-icon [icon]="faTimes" class="pr-1"></fa-icon>
+              Delete
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="offset-sm-3"></div>
+  </div>
+</div>
+
+<ng-template #loadingAlert>
+  <div class="d-flex justify-content-center mt-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</ng-template>

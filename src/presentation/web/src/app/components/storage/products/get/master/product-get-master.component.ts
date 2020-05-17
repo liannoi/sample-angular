@@ -1,0 +1,37 @@
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {Subject} from 'rxjs';
+
+import {faInfo, faPen, faTimes, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+
+import {ProductsListViewModel, ProductsService} from '../../../../../../api/sample-angular-api';
+import {takeUntil} from 'rxjs/operators';
+
+@Component({
+  selector: 'app-product-get-master',
+  templateUrl: './product-get-master.component.html',
+  styleUrls: ['./product-get-master.component.css'],
+  providers: [ProductsService],
+})
+export class ProductGetMasterComponent implements OnInit, OnDestroy {
+  public faPen: IconDefinition = faPen;
+  public faInfo: IconDefinition = faInfo;
+  public faTimes: IconDefinition = faTimes;
+  public viewModel: ProductsListViewModel = new ProductsListViewModel();
+  private stop$ = new Subject<void>();
+
+  constructor(private titleService: Title, private productsService: ProductsService) {
+    this.titleService.setTitle('Products - Sample Angular');
+  }
+
+  ngOnInit(): void {
+    this.productsService.getAll(25)
+      .pipe(takeUntil(this.stop$))
+      .subscribe(result => this.viewModel = result, error => console.error(error));
+  }
+
+  ngOnDestroy(): void {
+    this.stop$.next();
+    this.stop$.complete();
+  }
+}

@@ -45,10 +45,10 @@ namespace SampleAngular.WebAPI.Controllers
             try
             {
                 var products = await Mediator.Send(new GetProductsAsListQuery());
-                var takenProducts = limit == 0 ? products.Products : products.Products.Take(limit);
+                var takenProducts = limit == 0 ? products.Products : products.Products.Take(limit).ToList();
                 foreach (var product in takenProducts) await _filler.FillParent(Mediator, product);
 
-                return Ok(takenProducts);
+                return Ok(new ProductsListViewModel {Products = takenProducts});
             }
             catch (ValidationException e)
             {

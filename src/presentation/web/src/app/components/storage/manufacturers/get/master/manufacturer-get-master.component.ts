@@ -17,17 +17,15 @@ export class ManufacturerGetMasterComponent implements OnInit, OnDestroy {
   public faPen: IconDefinition = faPen;
   public faInfo: IconDefinition = faInfo;
   public faTimes: IconDefinition = faTimes;
-  public viewModel: ManufacturersListViewModel;
+  public viewModel: ManufacturersListViewModel = new ManufacturersListViewModel();
   private stop$ = new Subject<void>();
 
   constructor(private titleService: Title, private manufacturersService: ManufacturersService) {
     this.titleService.setTitle('Manufacturers - Sample Angular');
-    this.viewModel = new ManufacturersListViewModel();
-    this.viewModel.manufacturers = [];
   }
 
   ngOnInit(): void {
-    this.manufacturersService.getAll()
+    this.manufacturersService.getAll(50)
       .pipe(takeUntil(this.stop$))
       .subscribe(result => this.viewModel = result, error => console.error(error));
   }

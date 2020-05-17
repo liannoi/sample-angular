@@ -15,7 +15,7 @@ import {MsgDefaultComponent} from './components/common/msg/msg-default/msg-defau
 import {MsgWelcomeCalmComponent} from './components/common/msg/msg-welcome-calm/msg-welcome-calm.component';
 import {MsgWelcomeComponent} from './components/common/msg/msg-welcome/msg-welcome.component';
 import {ManufacturerGetMasterComponent} from './components/storage/manufacturers/get/master/manufacturer-get-master.component';
-import {ManufacturerGetDetailComponent} from './components/storage/manufacturers/get/detail/manufacturer-get-detail.component';
+import {ProductGetMasterComponent} from './components/storage/products/get/master/product-get-master.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import {ManufacturerGetDetailComponent} from './components/storage/manufacturers
     MsgWelcomeComponent,
     MsgWelcomeCalmComponent,
     ManufacturerGetMasterComponent,
-    ManufacturerGetDetailComponent,
+    ProductGetMasterComponent,
   ],
   imports: [
     BrowserModule,
