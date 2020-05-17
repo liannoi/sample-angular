@@ -2,21 +2,21 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SampleAngular.Application.Storage.Products;
-using SampleAngular.Application.Storage.Products.Commands.Create;
-using SampleAngular.Application.Storage.Products.Commands.Delete;
-using SampleAngular.Application.Storage.Products.Commands.Update;
-using SampleAngular.Application.Storage.Products.Queries.Get;
-using SampleAngular.Application.Storage.Products.Queries.Get.AsList;
+using SampleAngular.Application.Storage.Manufacturers;
+using SampleAngular.Application.Storage.Manufacturers.Commands.Create;
+using SampleAngular.Application.Storage.Manufacturers.Commands.Delete;
+using SampleAngular.Application.Storage.Manufacturers.Commands.Update;
+using SampleAngular.Application.Storage.Manufacturers.Queries.Get;
+using SampleAngular.Application.Storage.Manufacturers.Queries.Get.AsList;
 
 namespace SampleAngular.WebAPI.Controllers
 {
-    public class ProductsController : BaseController
+    public class ManufacturersController : BaseController
     {
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductLookupDto>> Create(CreateProductCommand command)
+        public async Task<ActionResult<ManufacturerLookupDto>> Create(CreateManufacturerCommand command)
         {
             try
             {
@@ -30,11 +30,12 @@ namespace SampleAngular.WebAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ProductsListViewModel>> GetAll()
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<ManufacturersListViewModel>> GetAll()
         {
             try
             {
-                return Ok(await Mediator.Send(new GetProductsAsListQuery()));
+                return Ok(await Mediator.Send(new GetManufacturersAsListQuery()));
             }
             catch (ValidationException e)
             {
@@ -45,11 +46,11 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductLookupDto>> GetById(int id)
+        public async Task<ActionResult<ManufacturerLookupDto>> GetById(int id)
         {
             try
             {
-                return Ok(await Mediator.Send(new GetProductQuery {ProductId = id}));
+                return Ok(await Mediator.Send(new GetManufacturerQuery {ManufacturerId = id}));
             }
             catch (ValidationException e)
             {
@@ -60,7 +61,7 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpPatch]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductLookupDto>> Update(UpdateProductCommand command)
+        public async Task<ActionResult<ManufacturerLookupDto>> Update(UpdateManufacturerCommand command)
         {
             try
             {
@@ -75,7 +76,7 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductLookupDto>> Delete(DeleteProductCommand command)
+        public async Task<ActionResult<ManufacturerLookupDto>> Delete(DeleteManufacturerCommand command)
         {
             try
             {
