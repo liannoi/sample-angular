@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
@@ -28,14 +29,17 @@ namespace SampleAngular.WebAPI.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("{limit?}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ManufacturersListViewModel>> GetAll()
+        public async Task<ActionResult<ManufacturersListViewModel>> GetAll(int limit = 0)
         {
             try
             {
-                return Ok(await Mediator.Send(new GetManufacturersAsListQuery()));
+                var result = await Mediator.Send(new GetManufacturersAsListQuery());
+                if (limit > 0) result.Manufacturers = result.Manufacturers.Take(limit).ToList();
+
+                return Ok(result);
             }
             catch (ValidationException e)
             {

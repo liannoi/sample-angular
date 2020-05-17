@@ -27,6 +27,7 @@ namespace SampleAngular.WebAPI
 
             services.AddHealthChecks().AddDbContextCheck<SampleAngularContext>();
 
+            services.AddCors();
             services.AddControllers();
 
             services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
@@ -43,6 +44,8 @@ namespace SampleAngular.WebAPI
 
             app.UseHealthChecks("/health");
             app.UseHttpsRedirection();
+
+            app.UseCors(options => options.WithOrigins("http://localhost:4200").AllowAnyMethod());
 
             app.UseRouting();
 

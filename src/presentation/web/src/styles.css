@@ -3,3 +3,14 @@ body {
   font-family: -apple-system, Helvetica Neue, Segoe UI, Adobe Garamond Pro, sans-serif;
   background: -webkit-gradient(linear, right top, left bottom, from(#fafafa), to(#efefef));
 }
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
