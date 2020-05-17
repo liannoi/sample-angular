@@ -10,10 +10,9 @@
 
     <ItemGroup>
       <Folder Include="Common\Exceptions" />
-      <Folder Include="Storage\ProductPhotos\Commands\Create" />
-      <Folder Include="Storage\ProductPhotos\Commands\Delete" />
-      <Folder Include="Storage\ProductPhotos\Commands\Update" />
-      <Folder Include="Storage\ProductPhotos\Queries\Get" />
+      <Folder Include="Storage\Products\Infrastructure\Photos\Commands\Create" />
+      <Folder Include="Storage\Products\Infrastructure\Photos\Commands\Delete" />
+      <Folder Include="Storage\Products\Infrastructure\Photos\Commands\Update" />
     </ItemGroup>
 
     <ItemGroup>

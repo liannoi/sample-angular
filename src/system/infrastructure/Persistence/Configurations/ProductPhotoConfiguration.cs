@@ -4,9 +4,9 @@ using SampleAngular.Domain.Entities;
 
 namespace SampleAngular.Infrastructure.Persistence.Configurations
 {
-    public class ProductPhotoConfiguration : IEntityTypeConfiguration<ProductPhotos>
+    public class ProductPhotoConfiguration : IEntityTypeConfiguration<ProductPhoto>
     {
-        public void Configure(EntityTypeBuilder<ProductPhotos> builder)
+        public void Configure(EntityTypeBuilder<ProductPhoto> builder)
         {
             builder.HasKey(e => new {e.PhotoId, e.ProductId}).HasName("PK_Photos");
             builder.Property(e => e.PhotoId).ValueGeneratedOnAdd();

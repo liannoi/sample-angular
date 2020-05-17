@@ -6,7 +6,7 @@ namespace SampleAngular.Domain.Entities
     {
         public Product()
         {
-            ProductPhotos = new HashSet<ProductPhotos>();
+            ProductPhotos = new HashSet<ProductPhoto>();
         }
 
         public int ProductId { get; set; }
@@ -15,6 +15,6 @@ namespace SampleAngular.Domain.Entities
         public string ProductNumber { get; set; }
 
         public Manufacturer Manufacturer { get; set; }
-        public ICollection<ProductPhotos> ProductPhotos { get; set; }
+        public ICollection<ProductPhoto> ProductPhotos { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SampleAngular.Domain.Entities
 {
-    public class ProductPhotos
+    public class ProductPhoto
     {
         public int PhotoId { get; set; }
         public int ProductId { get; set; }

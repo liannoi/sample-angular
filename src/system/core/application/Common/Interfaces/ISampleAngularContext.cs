@@ -8,7 +8,7 @@ namespace SampleAngular.Application.Common.Interfaces
     public interface ISampleAngularContext
     {
         DbSet<Manufacturer> Manufacturers { get; set; }
-        DbSet<ProductPhotos> ProductPhotos { get; set; }
+        DbSet<ProductPhoto> ProductPhotos { get; set; }
         DbSet<Product> Products { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
