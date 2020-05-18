@@ -46,10 +46,10 @@ namespace SampleAngular.WebAPI
             app.UseHttpsRedirection();
 
             app.UseCors(options => options.WithOrigins("http://localhost:4200").AllowAnyMethod());
-
             app.UseRouting();
-
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseEndpoints(endpoints => endpoints.MapControllerRoute(
+                "default",
+                "{controller=Products}/{action=GetAll}/{id?}"));
         }
     }
 }
