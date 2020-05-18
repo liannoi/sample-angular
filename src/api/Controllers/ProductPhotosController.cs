@@ -13,7 +13,7 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductPhotoLookupDto>> Create(CreateProductPhotoCommand command)
+        public async Task<ActionResult<ProductPhotoLookupDto>> Create([FromBody] CreateProductPhotoCommand command)
         {
             try
             {
@@ -25,14 +25,14 @@ namespace SampleAngular.WebAPI.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductPhotoLookupDto>> Delete(DeleteProductPhotoCommand command)
+        public async Task<ActionResult<ProductPhotoLookupDto>> Delete(int id)
         {
             try
             {
-                return Ok(await Mediator.Send(command));
+                return Ok(await Mediator.Send(new DeleteProductPhotoCommand {PhotoId = id}));
             }
             catch (ValidationException e)
             {

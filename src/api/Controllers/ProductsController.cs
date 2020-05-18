@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
@@ -22,14 +21,17 @@ namespace SampleAngular.WebAPI.Controllers
             _filler = filler;
         }
 
-        [HttpPost]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductLookupDto>> Create(CreateProductCommand command)
+        public async Task<ActionResult<ProductsListViewModel>> GetAll()
         {
             try
             {
-                return Ok(await Mediator.Send(command));
+                var products = await Mediator.Send(new GetProductsAsListQuery());
+                foreach (var product in products.Products) await _filler.FillParent(Mediator, product);
+
+                return Ok(products);
             }
             catch (ValidationException e)
             {
@@ -37,18 +39,14 @@ namespace SampleAngular.WebAPI.Controllers
             }
         }
 
-        [HttpGet("{limit?}")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductsListViewModel>> GetAll(int limit = 0)
+        public async Task<ActionResult<ProductLookupDto>> Create([FromBody] CreateProductCommand command)
         {
             try
             {
-                var products = await Mediator.Send(new GetProductsAsListQuery());
-                var takenProducts = limit == 0 ? products.Products : products.Products.Take(limit).ToList();
-                foreach (var product in takenProducts) await _filler.FillParent(Mediator, product);
-
-                return Ok(new ProductsListViewModel {Products = takenProducts});
+                return Ok(await Mediator.Send(command));
             }
             catch (ValidationException e)
             {
@@ -74,10 +72,10 @@ namespace SampleAngular.WebAPI.Controllers
             }
         }
 
-        [HttpPatch]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductLookupDto>> Update(UpdateProductCommand command)
+        public async Task<ActionResult<ProductLookupDto>> Update([FromBody] UpdateProductCommand command)
         {
             try
             {
@@ -89,14 +87,14 @@ namespace SampleAngular.WebAPI.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductLookupDto>> Delete(DeleteProductCommand command)
+        public async Task<ActionResult<ProductLookupDto>> Delete(int id)
         {
             try
             {
-                return Ok(await Mediator.Send(command));
+                return Ok(await Mediator.Send(new DeleteProductCommand {ProductId = id}));
             }
             catch (ValidationException e)
             {

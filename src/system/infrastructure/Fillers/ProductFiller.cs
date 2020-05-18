@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using MediatR;
 using SampleAngular.Application.Common.Interfaces;
+using SampleAngular.Application.Storage.Manufacturers.Queries.Get;
 using SampleAngular.Application.Storage.Products;
 using SampleAngular.Application.Storage.Products.Infrastructure.Photos.Queries.AsList;
 
@@ -10,8 +11,11 @@ namespace SampleAngular.Infrastructure.Fillers
     {
         public async Task FillParent(IMediator mediator, ProductLookupDto product)
         {
-            product.Photos = (await mediator.Send(new GetProductPhotosAsListQuery {ProductId = product.ProductId}))
-                .ProductPhotos;
+            product.Photos = (await mediator.Send(new GetProductPhotosAsListQuery
+                {ProductId = product.ProductId})).ProductPhotos;
+
+            product.Manufacturer = await mediator.Send(new GetManufacturerQuery
+                {ManufacturerId = product.Manufacturer.ManufacturerId});
         }
     }
 }

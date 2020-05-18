@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
@@ -14,14 +13,14 @@ namespace SampleAngular.WebAPI.Controllers
 {
     public class ManufacturersController : BaseController
     {
-        [HttpPost]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ManufacturerLookupDto>> Create(CreateManufacturerCommand command)
+        public async Task<ActionResult<ManufacturersListViewModel>> GetAll()
         {
             try
             {
-                return Ok(await Mediator.Send(command));
+                return Ok(await Mediator.Send(new GetManufacturersAsListQuery()));
             }
             catch (ValidationException e)
             {
@@ -29,17 +28,14 @@ namespace SampleAngular.WebAPI.Controllers
             }
         }
 
-        [HttpGet("{limit?}")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ManufacturersListViewModel>> GetAll(int limit = 0)
+        public async Task<ActionResult<ManufacturerLookupDto>> Create([FromBody] CreateManufacturerCommand command)
         {
             try
             {
-                var result = await Mediator.Send(new GetManufacturersAsListQuery());
-                if (limit > 0) result.Manufacturers = result.Manufacturers.Take(limit).ToList();
-
-                return Ok(result);
+                return Ok(await Mediator.Send(command));
             }
             catch (ValidationException e)
             {
@@ -62,10 +58,10 @@ namespace SampleAngular.WebAPI.Controllers
             }
         }
 
-        [HttpPatch]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ManufacturerLookupDto>> Update(UpdateManufacturerCommand command)
+        public async Task<ActionResult<ManufacturerLookupDto>> Update([FromBody] UpdateManufacturerCommand command)
         {
             try
             {
@@ -77,14 +73,14 @@ namespace SampleAngular.WebAPI.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ManufacturerLookupDto>> Delete(DeleteManufacturerCommand command)
+        public async Task<ActionResult<ManufacturerLookupDto>> Delete(int id)
         {
             try
             {
-                return Ok(await Mediator.Send(command));
+                return Ok(await Mediator.Send(new DeleteManufacturerCommand {ManufacturerId = id}));
             }
             catch (ValidationException e)
             {
