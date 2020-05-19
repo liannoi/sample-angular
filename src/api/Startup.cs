@@ -64,9 +64,13 @@ namespace SampleAngular.WebAPI
             app.UseHttpsRedirection();
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sample Angular API v1"));
 
-            app.UseCors(options => options.WithOrigins("http://localhost:4200").AllowAnyMethod());
+            app.UseCors(options => options
+                .WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             app.UseRouting();
             app.UseEndpoints(endpoints => endpoints.MapControllerRoute(
                 "default",

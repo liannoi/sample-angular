@@ -12,23 +12,24 @@
   </div>
 
   <div class="row">
-    <div class="offset-sm-2"></div>
-    <div class="col-sm-8">
+    <div class="offset-sm-1"></div>
+    <div class="col-sm-10">
       <table class="table border table-striped table-sm">
         <thead class="thead-light table-bordered">
         <tr>
           <th>Name</th>
+          <th>Manufacturer</th>
           <th class="text-black-50">Actions</th>
         </tr>
         </thead>
 
         <tbody>
         <tr *ngFor="let product of viewModel.products;">
-
           <td>{{product.name}}</td>
-
+          <td>{{product.manufacturer.name}}</td>
           <td>
-            <a class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder disabled">
+            <a (click)="onProductUpdateClick(product)"
+               class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder">
               <fa-icon [icon]="faPen" class="pr-1"></fa-icon>
               Edit
             </a>
@@ -48,7 +49,7 @@
         </tbody>
       </table>
     </div>
-    <div class="offset-sm-2"></div>
+    <div class="offset-sm-1"></div>
   </div>
 </div>
 

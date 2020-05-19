@@ -1,0 +1,44 @@
+<div class="row mt-4 mb-3">
+  <div class="col-sm-3">
+    <h2>Update product</h2>
+    <hr>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-sm-3">
+    <form (ngSubmit)="onSubmit()" [formGroup]="productForm">
+      <input [value]="currentProduct?.productId" id="product_id" name="product[id]" type="hidden"/>
+
+      <div class="form-group">
+        <label for="product_name">Name</label>
+        <input class="form-control" formControlName="name" id="product_name" name="product[name]" type="text">
+      </div>
+
+      <div class="form-group">
+        <label for="product_number">Product Number</label>
+        <input class="form-control" formControlName="productNumber" id="product_number" name="product[number]"
+               type="text">
+      </div>
+
+      <div class="form-group">
+        <label for="product_manufacturer">Manufacturer</label>
+        <select class="form-control" formControlName="manufacturerId"
+                id="product_manufacturer"
+                name="product[manufacturer]" ngModel="{{currentProduct?.manufacturer.manufacturerId}}">
+          <option *ngFor="let item of manufacturers;" [value]="item.manufacturerId">{{item.name}}</option>
+        </select>
+      </div>
+
+      <div class="form-group mt-4">
+        <input class="btn btn-primary" type="submit" value="OK">
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <a [routerLink]="['/products']">Back to List</a>
+  </div>
+</div>

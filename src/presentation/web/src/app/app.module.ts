@@ -1,6 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
+import {ReactiveFormsModule} from '@angular/forms';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -16,6 +17,7 @@ import {MsgWelcomeCalmComponent} from './components/common/msg/msg-welcome-calm/
 import {MsgWelcomeComponent} from './components/common/msg/msg-welcome/msg-welcome.component';
 import {ManufacturerGetMasterComponent} from './components/storage/manufacturers/get/master/manufacturer-get-master.component';
 import {ProductGetMasterComponent} from './components/storage/products/get/master/product-get-master.component';
+import {ProductUpdateComponent} from './components/storage/products/update/product-update.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import {ProductGetMasterComponent} from './components/storage/products/get/maste
     MsgWelcomeCalmComponent,
     ManufacturerGetMasterComponent,
     ProductGetMasterComponent,
+    ProductUpdateComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import {ProductGetMasterComponent} from './components/storage/products/get/maste
     NgbModule,
     FontAwesomeModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   bootstrap: [AppComponent],
 })
