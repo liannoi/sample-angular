@@ -4,7 +4,8 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {ManufacturerModel, ManufacturersService} from '../../../../../api/sample-angular-api';
+import {ManufacturersService} from '../../../../../api/services/manufacturers.service';
+import {ManufacturerModel} from '../../../../../api/models/manufacturer.model';
 
 @Component({
   selector: 'app-manufacturer-update',
@@ -16,7 +17,6 @@ export class ManufacturerUpdateComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public model: ManufacturerModel;
   private stop$ = new Subject<void>();
-  private errorMessage: string;
 
   constructor(private manufacturersService: ManufacturersService, private activatedRoute: ActivatedRoute, private router: Router) {
   }
@@ -30,16 +30,12 @@ export class ManufacturerUpdateComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.forEach((params: Params) => {
       let id = params['id'];
 
-      if (id > 0) {
+      if (id != 0) {
         this.manufacturersService.getById(id)
           .pipe(takeUntil(this.stop$))
-          .subscribe((result: ManufacturerModel) => {
-            this.model = result;
-            this.form.patchValue(this.model);
-          }, error => this.errorMessage = error);
+          .subscribe((result: ManufacturerModel) => this.initializeInputs(result), error => console.log(error));
       } else {
-        this.model = new ManufacturerModel();
-        this.form.patchValue(this.model);
+        this.initializeInputs();
       }
     });
   }
@@ -51,14 +47,24 @@ export class ManufacturerUpdateComponent implements OnInit, OnDestroy {
 
   public onSubmit(): void {
     let result = this.form.value;
+
     if (this.model.manufacturerId != 0) {
       this.manufacturersService.update(result.manufacturerId, result)
         .pipe(takeUntil(this.stop$))
-        .subscribe(() => this.router.navigate(['/manufacturers']));
+        .subscribe(() => this.redirectToParent());
     } else {
       this.manufacturersService.create(result)
         .pipe(takeUntil(this.stop$))
-        .subscribe(() => this.router.navigate(['/manufacturers']));
+        .subscribe(() => this.redirectToParent());
     }
+  }
+
+  private redirectToParent(): Promise<boolean> {
+    return this.router.navigate(['/manufacturers']);
+  }
+
+  private initializeInputs(model: ManufacturerModel = new ManufacturerModel()): void {
+    this.model = model;
+    this.form.patchValue(this.model);
   }
 }

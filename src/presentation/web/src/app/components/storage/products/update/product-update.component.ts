@@ -2,15 +2,13 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
 
-import {
-  ManufacturerModel,
-  ManufacturersListViewModel,
-  ManufacturersService,
-  ProductModel,
-  ProductsService,
-} from '../../../../../api/sample-angular-api';
+import {ProductsService} from '../../../../../api/services/products.service';
+import {ManufacturersService} from '../../../../../api/services/manufacturers.service';
+import {ProductModel} from '../../../../../api/models/product.model';
+import {ManufacturerModel} from '../../../../../api/models/manufacturer.model';
+import {takeUntil} from 'rxjs/operators';
+import {ManufacturersListModel} from '../../../../../api/models/manufacturers-list.model';
 
 @Component({
   selector: 'app-product-update',
@@ -19,9 +17,8 @@ import {
   providers: [ProductsService, ManufacturersService],
 })
 export class ProductUpdateComponent implements OnInit, OnDestroy {
-  public productForm: FormGroup;
-  public currentProduct: ProductModel;
-  public errorMessage: string;
+  public form: FormGroup;
+  public model: ProductModel;
   public manufacturers: ManufacturerModel[];
   private stop$ = new Subject<void>();
 
@@ -29,42 +26,30 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    const self = this;
-    initializeForm.call(this);
+    this.form = new FormGroup({
+      name: new FormControl(''),
+      productNumber: new FormControl(''),
+      manufacturer: new FormGroup({
+        manufacturerId: new FormControl(''),
+        name: new FormControl(''),
+      }),
+    });
 
     this.manufacturerService.getAll()
       .pipe(takeUntil(this.stop$))
-      .subscribe((result: ManufacturersListViewModel) => this.setManufacturers(result), error => console.error(error));
+      .subscribe((result: ManufacturersListModel) => this.manufacturers = result.manufacturers, error => console.log(error));
 
     this.activatedRoute.params.forEach((params: Params) => {
       let id = params['id'];
 
-      if (id > 0) {
-        this.productsService.getById(params['id'])
+      if (id != 0) {
+        this.productsService.getById(id)
           .pipe(takeUntil(this.stop$))
-          .subscribe((result: ProductModel) => this.fillForm(result), error => this.errorMessage = error);
+          .subscribe((result: ProductModel) => this.initializeInputs(result), error => console.log(error));
       } else {
-        self.fillForm({
-          productId: 0,
-          name: '',
-          productNumber: '',
-          manufacturer: {manufacturerId: 0, name: ''},
-          photos: [{photoId: null, productId: null, path: null}],
-        });
+        this.initializeInputs();
       }
     });
-
-    function initializeForm() {
-      self.productForm = new FormGroup({
-        productId: new FormControl(''),
-        name: new FormControl(''),
-        productNumber: new FormControl(''),
-        manufacturer: new FormGroup({
-          manufacturerId: new FormControl(''),
-          name: new FormControl(''),
-        }),
-      });
-    }
   }
 
   public ngOnDestroy(): void {
@@ -72,41 +57,28 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
     this.stop$.complete();
   }
 
-  public onSubmit(): void {
-    const self = this;
-    let model = prepareModel.call(this);
+  public onSubmit() {
+    let id: number = this.model.productId;
+    this.model = this.form.getRawValue();
+    this.model.productId = id;
 
-    if (this.currentProduct.productId > 0) {
-      /*    this.productsService.update(model)
-         .pipe(takeUntil(this.stop$))
-         .subscribe(() => this.routeToParent(), error => console.error(error));*/
+    if (id != 0) {
+      this.productsService.update(id, this.model)
+        .pipe(takeUntil(this.stop$))
+        .subscribe(() => this.redirectToParent());
     } else {
-      /* this.productsService.create(model)
-         .pipe(takeUntil(this.stop$))
-         .subscribe(() => self.routeToParent(), error => console.error(error));*/
-    }
-
-
-    function prepareModel() {
-      let model = self.productForm.value;
-      console.log(model);
-      //model.manufacturerId = parseInt(self.productForm.get('manufacturerId').value);
-      return model;
+      this.productsService.create(this.model)
+        .pipe(takeUntil(this.stop$))
+        .subscribe(() => this.redirectToParent());
     }
   }
 
-  // Helpers.
-
-  private setManufacturers(result: ManufacturersListViewModel) {
-    return this.manufacturers = result.manufacturers;
+  private redirectToParent(): Promise<boolean> {
+    return this.router.navigate(['/products']);
   }
 
-  private fillForm(result: ProductModel): void {
-    this.currentProduct = result;
-    this.productForm.patchValue(this.currentProduct);
-  }
-
-  private routeToParent(): void {
-    this.router.navigate(['/products']);
+  private initializeInputs(model: ProductModel = new ProductModel()): void {
+    this.model = model;
+    this.form.patchValue(this.model);
   }
 }

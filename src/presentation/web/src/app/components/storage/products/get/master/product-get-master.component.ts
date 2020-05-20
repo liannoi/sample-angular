@@ -1,12 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {Subject} from 'rxjs';
-
-import {faInfo, faPen, faTimes, IconDefinition} from '@fortawesome/free-solid-svg-icons';
-
-import {ProductsListViewModel, ProductsService} from '../../../../../../api/sample-angular-api';
 import {takeUntil} from 'rxjs/operators';
 import {Router} from '@angular/router';
+
+import {faPen, faTimes, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+
+import {ProductsService} from '../../../../../../api/services/products.service';
+import {ProductsListModel} from '../../../../../../api/models/products-list.model';
 
 @Component({
   selector: 'app-product-get-master',
@@ -16,9 +17,8 @@ import {Router} from '@angular/router';
 })
 export class ProductGetMasterComponent implements OnInit, OnDestroy {
   public faPen: IconDefinition = faPen;
-  public faInfo: IconDefinition = faInfo;
   public faTimes: IconDefinition = faTimes;
-  public viewModel: ProductsListViewModel = new ProductsListViewModel();
+  public viewModel: ProductsListModel = new ProductsListModel();
   private stop$ = new Subject<void>();
 
   constructor(private titleService: Title, private productsService: ProductsService, private router: Router) {
@@ -36,11 +36,7 @@ export class ProductGetMasterComponent implements OnInit, OnDestroy {
     this.stop$.complete();
   }
 
-  public onProductUpdateClick(id: number): void {
+  public redirectToUpdate(id: number = 0): void {
     this.router.navigate(['/products/update', id]);
-  }
-
-  public onProductCreateClick() {
-    this.router.navigate(['/products/update', 0]);
   }
 }

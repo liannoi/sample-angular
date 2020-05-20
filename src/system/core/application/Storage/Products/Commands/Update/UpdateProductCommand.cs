@@ -6,7 +6,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SampleAngular.Application.Common.Interfaces;
 using SampleAngular.Application.Storage.Manufacturers;
-using SampleAngular.Domain.Entities;
 
 namespace SampleAngular.Application.Storage.Products.Commands.Update
 {
@@ -35,7 +34,10 @@ namespace SampleAngular.Application.Storage.Products.Commands.Update
                     .Where(e => e.ProductId == request.ProductId)
                     .FirstOrDefaultAsync(cancellationToken);
 
-                fined.Manufacturer = _mapper.Map<Manufacturer>(request.Manufacturer);
+                fined.Manufacturer = await _context.Manufacturers
+                    .Where(e => e.ManufacturerId == request.Manufacturer.ManufacturerId)
+                    .FirstOrDefaultAsync(cancellationToken);
+
                 fined.Name = request.Name;
                 fined.ProductNumber = request.ProductNumber;
                 _context.Products.Update(fined);

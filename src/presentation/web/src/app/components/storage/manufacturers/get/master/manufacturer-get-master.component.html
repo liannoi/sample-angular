@@ -7,13 +7,13 @@
 
   <div class="row mb-4 text-center">
     <div class="col-sm-12">
-      <a (click)="onManufacturerCreateClick()" class="link-create btn btn-primary text-white">Create</a>
+      <a (click)="redirectToUpdate()" class="link-create btn btn-primary text-white">Create</a>
     </div>
   </div>
 
   <div class="row">
-    <div class="offset-sm-4"></div>
-    <div class="col-sm-4">
+    <div class="offset-sm-3"></div>
+    <div class="col-sm-6">
       <table class="table border table-striped table-sm">
         <thead class="thead-light table-bordered">
         <tr>
@@ -26,7 +26,7 @@
           <td>{{item.name}}</td>
 
           <td>
-            <a (click)="onManufacturerUpdateClick(item.manufacturerId)"
+            <a (click)="redirectToUpdate(item.manufacturerId)"
                class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder">
               <fa-icon [icon]="faPen" class="pr-1"></fa-icon>
               Edit
@@ -41,7 +41,7 @@
         </tbody>
       </table>
     </div>
-    <div class="offset-sm-4"></div>
+    <div class="offset-sm-3"></div>
   </div>
 </div>
 
