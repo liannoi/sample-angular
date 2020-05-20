@@ -21,11 +21,9 @@
                type="text">
       </div>
 
-      <div class="form-group">
-        <label for="product_manufacturer">Manufacturer</label>
-        <select class="form-control" formControlName="manufacturerId"
-                id="product_manufacturer"
-                name="product[manufacturer]" ngModel="{{currentProduct?.manufacturer.manufacturerId}}">
+      <div class="form-group" formGroupName="manufacturer">
+        <label for="manufacturerId">Manufacturer</label>
+        <select class="form-control" formControlName="manufacturerId" id="manufacturerId">
           <option *ngFor="let item of manufacturers;" [value]="item.manufacturerId">{{item.name}}</option>
         </select>
       </div>

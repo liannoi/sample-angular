@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
+import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {faInfo, faPen, faTimes, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {faPen, faTimes, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 
 import {ManufacturersListViewModel, ManufacturersService} from '../../../../../../api/sample-angular-api';
 
@@ -15,12 +16,11 @@ import {ManufacturersListViewModel, ManufacturersService} from '../../../../../.
 })
 export class ManufacturerGetMasterComponent implements OnInit, OnDestroy {
   public faPen: IconDefinition = faPen;
-  public faInfo: IconDefinition = faInfo;
   public faTimes: IconDefinition = faTimes;
   public viewModel: ManufacturersListViewModel = new ManufacturersListViewModel();
   private stop$ = new Subject<void>();
 
-  constructor(private titleService: Title, private manufacturersService: ManufacturersService) {
+  constructor(private titleService: Title, private manufacturersService: ManufacturersService, private router: Router) {
     this.titleService.setTitle('Manufacturers - Sample Angular');
   }
 
@@ -33,5 +33,13 @@ export class ManufacturerGetMasterComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.stop$.next();
     this.stop$.complete();
+  }
+
+  public onManufacturerUpdateClick(id: number) {
+    this.router.navigate(['/manufacturers/update', id]);
+  }
+
+  public onManufacturerCreateClick() {
+    this.router.navigate(['/manufacturers/update', 0]);
   }
 }

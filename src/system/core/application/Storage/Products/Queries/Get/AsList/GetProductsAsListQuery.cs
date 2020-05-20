@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -28,7 +27,6 @@ namespace SampleAngular.Application.Storage.Products.Queries.Get.AsList
                 return new ProductsListViewModel
                 {
                     Products = await _context.Products
-                        .Take(20)
                         .ProjectTo<ProductLookupDto>(_mapper.ConfigurationProvider)
                         .ToListAsync(cancellationToken)
                 };

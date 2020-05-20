@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using AutoMapper;
 using SampleAngular.Application.Common.Mappings;
 using SampleAngular.Application.Storage.Manufacturers;
-using SampleAngular.Application.Storage.Products.Infrastructure.Photos;
 using SampleAngular.Domain.Entities;
 
 namespace SampleAngular.Application.Storage.Products
@@ -12,9 +10,7 @@ namespace SampleAngular.Application.Storage.Products
         public int ProductId { get; set; }
         public string Name { get; set; }
         public string ProductNumber { get; set; }
-
         public ManufacturerLookupDto Manufacturer { get; set; }
-        public IEnumerable<ProductPhotoLookupDto> Photos { get; set; }
 
         public void Mapping(Profile profile)
         {

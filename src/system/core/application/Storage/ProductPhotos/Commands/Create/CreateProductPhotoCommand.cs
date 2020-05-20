@@ -5,10 +5,11 @@ using MediatR;
 using SampleAngular.Application.Common.Interfaces;
 using SampleAngular.Domain.Entities;
 
-namespace SampleAngular.Application.Storage.Products.Infrastructure.Photos.Commands.Create
+namespace SampleAngular.Application.Storage.ProductPhotos.Commands.Create
 {
     public class CreateProductPhotoCommand : IRequest<ProductPhotoLookupDto>
     {
+        public int PhotoId { get; set; }
         public int ProductId { get; set; }
         public string Path { get; set; }
 

@@ -4,7 +4,7 @@ import {Subject} from 'rxjs';
 
 import {faInfo, faPen, faTimes, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 
-import {ProductModel, ProductsListViewModel, ProductsService} from '../../../../../../api/sample-angular-api';
+import {ProductsListViewModel, ProductsService} from '../../../../../../api/sample-angular-api';
 import {takeUntil} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
@@ -36,7 +36,11 @@ export class ProductGetMasterComponent implements OnInit, OnDestroy {
     this.stop$.complete();
   }
 
-  public onProductUpdateClick(product: ProductModel): void {
-    this.router.navigate(['/products/update', product.productId]);
+  public onProductUpdateClick(id: number): void {
+    this.router.navigate(['/products/update', id]);
+  }
+
+  public onProductCreateClick() {
+    this.router.navigate(['/products/update', 0]);
   }
 }

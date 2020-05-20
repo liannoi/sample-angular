@@ -5,8 +5,8 @@ import {catchError, delay} from 'rxjs/operators';
 
 import {AbstractApiService} from './abstract-api.service';
 
-const apiAddress: string = 'http://liannoi01-001-site1.htempurl.com/api';
-// const apiAddress: string = 'https://localhost:5001/api';
+//const apiAddress: string = 'http://liannoi01-001-site1.htempurl.com/api';
+const apiAddress: string = 'https://localhost:5001/api';
 
 export interface ProductModel {
   productId: number;
@@ -16,9 +16,9 @@ export interface ProductModel {
   photos: PhotoModel[];
 }
 
-export interface ManufacturerModel {
-  manufacturerId: number;
-  name: string;
+export class ManufacturerModel {
+  constructor(public manufacturerId: number = 0, public name: string = '') {
+  }
 }
 
 export interface PhotoModel {
@@ -58,29 +58,22 @@ export class ManufacturersService extends AbstractApiService<ManufacturerModel, 
   }
 
   public create(model: ManufacturerModel): Observable<ManufacturerModel> {
-    return undefined;
+    return this.http.post<ManufacturerModel>(manufacturersApiAddress, model)
+      .pipe(catchError(this.handleError));
   }
 
-  public delete(model: ManufacturerModel): Observable<ManufacturerModel> {
+  public delete(id: number): Observable<ManufacturerModel> {
     return undefined;
   }
 
   public getById(id: number): Observable<ManufacturerModel> {
-    return undefined;
+    return this.http.get<ManufacturerModel>(`${manufacturersApiAddress}/${id}`)
+      .pipe(catchError(this.handleError));
   }
 
-  public update(model: ManufacturerModel): Observable<ManufacturerModel> {
-    return undefined;
-  }
-}
-
-export class ProductModel {
-  constructor(public manufacturer: ManufacturerModel, public name: string, public productNumber: string, public productId: number = 0, public photos: PhotoModel[] = []) {
-  }
-}
-
-export class PhotoModel {
-  constructor(public photoId: number, public productId: number, public path: string) {
+  public update(id: number, model: ManufacturerModel): Observable<ManufacturerModel> {
+    return this.http.put<ManufacturerModel>(manufacturersApiAddress, model)
+      .pipe(catchError(this.handleError));
   }
 }
 
@@ -96,10 +89,6 @@ export class ProductsService extends AbstractApiService<ProductModel, ProductsLi
     return undefined;
   }
 
-  public delete(model: ProductModel): Observable<ProductModel> {
-    return undefined;
-  }
-
   public getAll(timeout?: number): Observable<ProductsListViewModel> {
     return this.http.get<ProductsListViewModel>(productsApiAddress)
       .pipe(catchError(this.handleError))
@@ -111,7 +100,11 @@ export class ProductsService extends AbstractApiService<ProductModel, ProductsLi
       .pipe(catchError(this.handleError));
   }
 
-  public update(model: ProductModel): Observable<ProductModel> {
+  public delete(id: number): Observable<ProductModel> {
+    return undefined;
+  }
+
+  public update(id: number, model: ProductModel): Observable<ProductModel> {
     return this.http.put<ProductModel>(productsApiAddress, model)
       .pipe(catchError(this.handleError));
   }

@@ -2,7 +2,7 @@ using AutoMapper;
 using SampleAngular.Application.Common.Mappings;
 using SampleAngular.Domain.Entities;
 
-namespace SampleAngular.Application.Storage.Products.Infrastructure.Photos
+namespace SampleAngular.Application.Storage.ProductPhotos
 {
     public class ProductPhotoLookupDto : IMapFrom<ProductPhoto>
     {

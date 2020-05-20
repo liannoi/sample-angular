@@ -9,9 +9,6 @@ namespace SampleAngular.Application.Storage.Products.Commands.Create
             RuleFor(e => e.Name)
                 .NotEmpty();
 
-            RuleFor(e => e.ManufacturerId)
-                .NotEmpty();
-
             RuleFor(e => e.ProductNumber)
                 .NotEmpty();
         }

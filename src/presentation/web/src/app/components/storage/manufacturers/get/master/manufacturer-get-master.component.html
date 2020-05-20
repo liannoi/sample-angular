@@ -7,13 +7,13 @@
 
   <div class="row mb-4 text-center">
     <div class="col-sm-12">
-      <a [routerLink]="['/manufacturers/create']" class="link-create btn btn-primary text-white disabled">Create</a>
+      <a (click)="onManufacturerCreateClick()" class="link-create btn btn-primary text-white">Create</a>
     </div>
   </div>
 
   <div class="row">
-    <div class="offset-sm-3"></div>
-    <div class="col-sm-6">
+    <div class="offset-sm-4"></div>
+    <div class="col-sm-4">
       <table class="table border table-striped table-sm">
         <thead class="thead-light table-bordered">
         <tr>
@@ -21,22 +21,15 @@
           <th class="text-black-50">Actions</th>
         </tr>
         </thead>
-
         <tbody>
-        <tr *ngFor="let manufacturer of viewModel.manufacturers;">
-
-          <td>{{manufacturer.name}}</td>
+        <tr *ngFor="let item of viewModel.manufacturers;">
+          <td>{{item.name}}</td>
 
           <td>
-            <a class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder disabled">
+            <a (click)="onManufacturerUpdateClick(item.manufacturerId)"
+               class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder">
               <fa-icon [icon]="faPen" class="pr-1"></fa-icon>
               Edit
-            </a>
-
-            <a [routerLink]="['/manufacturers']"
-               class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder disabled">
-              <fa-icon [icon]="faInfo" class="pr-1"></fa-icon>
-              Details
             </a>
 
             <a class="btn btn-light border btn-sm pl-3 pr-3 font-weight-bolder disabled">
@@ -48,7 +41,7 @@
         </tbody>
       </table>
     </div>
-    <div class="offset-sm-3"></div>
+    <div class="offset-sm-4"></div>
   </div>
 </div>
 

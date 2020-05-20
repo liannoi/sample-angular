@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace SampleAngular.Application.Storage.Products.Infrastructure.Photos.Commands.Create
+namespace SampleAngular.Application.Storage.ProductPhotos.Commands.Create
 {
     public class CreateProductPhotoCommandValidator : AbstractValidator<CreateProductPhotoCommand>
     {

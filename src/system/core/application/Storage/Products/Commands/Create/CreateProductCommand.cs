@@ -3,15 +3,17 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using SampleAngular.Application.Common.Interfaces;
+using SampleAngular.Application.Storage.Manufacturers;
 using SampleAngular.Domain.Entities;
 
 namespace SampleAngular.Application.Storage.Products.Commands.Create
 {
     public class CreateProductCommand : IRequest<ProductLookupDto>
     {
-        public int ManufacturerId { get; set; }
+        public int ProductId { get; set; }
         public string Name { get; set; }
         public string ProductNumber { get; set; }
+        public ManufacturerLookupDto Manufacturer { get; set; }
 
         public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ProductLookupDto>
         {
@@ -29,7 +31,7 @@ namespace SampleAngular.Application.Storage.Products.Commands.Create
             {
                 var result = await _context.Products.AddAsync(new Product
                 {
-                    ManufacturerId = request.ManufacturerId,
+                    ManufacturerId = request.Manufacturer.ManufacturerId,
                     Name = request.Name,
                     ProductNumber = request.ProductNumber
                 }, cancellationToken);

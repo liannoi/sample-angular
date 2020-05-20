@@ -9,25 +9,16 @@ export abstract class AbstractApiService<TModel, TListModel> {
 
   public abstract getAll(timeout?: number): Observable<TListModel>;
 
-  public abstract getById(id: number): Observable<TModel>;
-
   public abstract create(model: TModel): Observable<TModel>;
 
-  public abstract delete(model: TModel): Observable<TModel>;
+  public abstract getById(id: number): Observable<TModel>;
 
-  public abstract update(model: TModel): Observable<TModel>;
+  public abstract update(id: number, model: TModel): Observable<TModel>;
+
+  public abstract delete(id: number): Observable<TModel>;
 
   protected handleError(error) {
-    let errorMessage: string = '';
-
-    if (error.error instanceof ErrorEvent) {
-      // client-side error
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-
+    let errorMessage: string = error.error instanceof ErrorEvent ? `Error: ${error.error.message}` : `Error Code: ${error.status}\nMessage: ${error.message}`;
     console.log(errorMessage);
 
     return throwError(errorMessage);

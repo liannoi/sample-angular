@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -25,34 +25,48 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
   public manufacturers: ManufacturerModel[];
   private stop$ = new Subject<void>();
 
-  constructor(private activatedRoute: ActivatedRoute, private productsService: ProductsService, private manufacturerService: ManufacturersService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private activatedRoute: ActivatedRoute, private productsService: ProductsService, private manufacturerService: ManufacturersService, private router: Router) {
   }
 
   public ngOnInit(): void {
     const self = this;
+    initializeForm.call(this);
 
     this.manufacturerService.getAll()
       .pipe(takeUntil(this.stop$))
       .subscribe((result: ManufacturersListViewModel) => this.setManufacturers(result), error => console.error(error));
 
-    initializeForm.call(this);
-
     this.activatedRoute.params.forEach((params: Params) => {
-      this.productsService.getById(params['id'])
-        .pipe(takeUntil(this.stop$))
-        .subscribe((result: ProductModel) => this.fillForm(result), error => this.errorMessage = error);
+      let id = params['id'];
+
+      if (id > 0) {
+        this.productsService.getById(params['id'])
+          .pipe(takeUntil(this.stop$))
+          .subscribe((result: ProductModel) => this.fillForm(result), error => this.errorMessage = error);
+      } else {
+        self.fillForm({
+          productId: 0,
+          name: '',
+          productNumber: '',
+          manufacturer: {manufacturerId: 0, name: ''},
+          photos: [{photoId: null, productId: null, path: null}],
+        });
+      }
     });
 
     function initializeForm() {
-      self.productForm = self.formBuilder.group({
-        productId: [],
-        name: [],
-        productNumber: [],
-        manufacturerId: [],
+      self.productForm = new FormGroup({
+        productId: new FormControl(''),
+        name: new FormControl(''),
+        productNumber: new FormControl(''),
+        manufacturer: new FormGroup({
+          manufacturerId: new FormControl(''),
+          name: new FormControl(''),
+        }),
       });
     }
   }
-  
+
   public ngOnDestroy(): void {
     this.stop$.next();
     this.stop$.complete();
@@ -62,13 +76,21 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
     const self = this;
     let model = prepareModel.call(this);
 
-    this.productsService.update(model)
-      .pipe(takeUntil(this.stop$))
-      .subscribe(() => this.routeToParent(), error => console.error(error));
+    if (this.currentProduct.productId > 0) {
+      /*    this.productsService.update(model)
+         .pipe(takeUntil(this.stop$))
+         .subscribe(() => this.routeToParent(), error => console.error(error));*/
+    } else {
+      /* this.productsService.create(model)
+         .pipe(takeUntil(this.stop$))
+         .subscribe(() => self.routeToParent(), error => console.error(error));*/
+    }
+
 
     function prepareModel() {
       let model = self.productForm.value;
-      model.manufacturerId = parseInt(self.productForm.get('manufacturerId').value);
+      console.log(model);
+      //model.manufacturerId = parseInt(self.productForm.get('manufacturerId').value);
       return model;
     }
   }

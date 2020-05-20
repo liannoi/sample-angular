@@ -18,6 +18,7 @@ import {MsgWelcomeComponent} from './components/common/msg/msg-welcome/msg-welco
 import {ManufacturerGetMasterComponent} from './components/storage/manufacturers/get/master/manufacturer-get-master.component';
 import {ProductGetMasterComponent} from './components/storage/products/get/master/product-get-master.component';
 import {ProductUpdateComponent} from './components/storage/products/update/product-update.component';
+import {ManufacturerUpdateComponent} from './components/storage/manufacturers/update/manufacturer-update.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {ProductUpdateComponent} from './components/storage/products/update/produ
     ManufacturerGetMasterComponent,
     ProductGetMasterComponent,
     ProductUpdateComponent,
+    ManufacturerUpdateComponent,
   ],
   imports: [
     BrowserModule,
