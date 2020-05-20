@@ -13,7 +13,6 @@ import {ManufacturersListModel} from '../../../../../api/models/manufacturers-li
 @Component({
   selector: 'app-product-update',
   templateUrl: './product-update.component.html',
-  styleUrls: ['./product-update.component.css'],
   providers: [ProductsService, ManufacturersService],
 })
 export class ProductUpdateComponent implements OnInit, OnDestroy {

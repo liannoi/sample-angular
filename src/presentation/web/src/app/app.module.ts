@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -41,6 +41,7 @@ import {ManufacturerUpdateComponent} from './components/storage/manufacturers/up
     NgbModule,
     FontAwesomeModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
   ],
   bootstrap: [AppComponent],

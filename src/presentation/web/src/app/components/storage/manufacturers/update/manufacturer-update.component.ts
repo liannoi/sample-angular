@@ -10,7 +10,6 @@ import {ManufacturerModel} from '../../../../../api/models/manufacturer.model';
 @Component({
   selector: 'app-manufacturer-update',
   templateUrl: './manufacturer-update.component.html',
-  styleUrls: ['./manufacturer-update.component.css'],
   providers: [ManufacturersService],
 })
 export class ManufacturerUpdateComponent implements OnInit, OnDestroy {
