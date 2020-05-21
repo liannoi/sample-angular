@@ -1,11 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {Subject} from 'rxjs';
-
-import {faInfo, faPen, faTimes, IconDefinition} from '@fortawesome/free-solid-svg-icons';
-
-import {ProductsListViewModel, ProductsService} from '../../../../../../api/sample-angular-api';
 import {takeUntil} from 'rxjs/operators';
+import {Router} from '@angular/router';
+
+import {faPen, faTimes, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+
+import {ProductsService} from '../../../../../../api/services/products.service';
+import {ProductsListModel} from '../../../../../../api/models/products-list.model';
 
 @Component({
   selector: 'app-product-get-master',
@@ -15,23 +17,26 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class ProductGetMasterComponent implements OnInit, OnDestroy {
   public faPen: IconDefinition = faPen;
-  public faInfo: IconDefinition = faInfo;
   public faTimes: IconDefinition = faTimes;
-  public viewModel: ProductsListViewModel = new ProductsListViewModel();
+  public viewModel: ProductsListModel = new ProductsListModel();
   private stop$ = new Subject<void>();
 
-  constructor(private titleService: Title, private productsService: ProductsService) {
+  constructor(private titleService: Title, private productsService: ProductsService, private router: Router) {
     this.titleService.setTitle('Products - Sample Angular');
   }
 
-  ngOnInit(): void {
-    this.productsService.getAll(25)
+  public ngOnInit(): void {
+    this.productsService.getAll()
       .pipe(takeUntil(this.stop$))
       .subscribe(result => this.viewModel = result, error => console.error(error));
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.stop$.next();
     this.stop$.complete();
+  }
+
+  public redirectToUpdate(id: number = 0): void {
+    this.router.navigate(['/products/update', id]);
   }
 }

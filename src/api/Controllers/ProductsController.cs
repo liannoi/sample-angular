@@ -7,6 +7,7 @@ using SampleAngular.Application.Storage.Products;
 using SampleAngular.Application.Storage.Products.Commands.Create;
 using SampleAngular.Application.Storage.Products.Commands.Delete;
 using SampleAngular.Application.Storage.Products.Commands.Update;
+using SampleAngular.Application.Storage.Products.Models;
 using SampleAngular.Application.Storage.Products.Queries.Get;
 using SampleAngular.Application.Storage.Products.Queries.Get.AsList;
 
@@ -72,13 +73,14 @@ namespace SampleAngular.WebAPI.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductLookupDto>> Update([FromBody] UpdateProductCommand command)
+        public async Task<ActionResult<ProductLookupDto>> Update(int id, [FromBody] UpdateProductCommand command)
         {
             try
             {
+                command.ProductId = id;
                 return Ok(await Mediator.Send(command));
             }
             catch (ValidationException e)

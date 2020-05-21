@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SampleAngular.Application.Storage.Products.Infrastructure.Photos.Queries.AsList
+namespace SampleAngular.Application.Storage.ProductPhotos.Queries.AsList
 {
     public class ProductPhotosListViewModel
     {

@@ -7,7 +7,7 @@
 
   <div class="row mb-4 text-center">
     <div class="col-sm-12">
-      <a [routerLink]="['/products/create']" class="link-create btn btn-primary text-white disabled">Create</a>
+      <a (click)="redirectToUpdate()" class="link-create btn btn-primary text-white">Create</a>
     </div>
   </div>
 
@@ -18,25 +18,19 @@
         <thead class="thead-light table-bordered">
         <tr>
           <th>Name</th>
+          <th>Manufacturer</th>
           <th class="text-black-50">Actions</th>
         </tr>
         </thead>
-
         <tbody>
         <tr *ngFor="let product of viewModel.products;">
-
           <td>{{product.name}}</td>
-
+          <td>{{product.manufacturer.name}}</td>
           <td>
-            <a class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder disabled">
+            <a (click)="redirectToUpdate(product.productId)"
+               class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder">
               <fa-icon [icon]="faPen" class="pr-1"></fa-icon>
               Edit
-            </a>
-
-            <a [routerLink]="['/manufacturers']"
-               class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder disabled">
-              <fa-icon [icon]="faInfo" class="pr-1"></fa-icon>
-              Details
             </a>
 
             <a class="btn btn-light border btn-sm pl-3 pr-3 font-weight-bolder disabled">

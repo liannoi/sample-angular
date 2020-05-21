@@ -7,15 +7,14 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SampleAngular.Application.Common.Interfaces;
 
-namespace SampleAngular.Application.Storage.Products.Infrastructure.Photos.Queries.AsList
+namespace SampleAngular.Application.Storage.ProductPhotos.Queries.AsList.ByProduct
 {
-    public class GetProductPhotosAsListQuery : IRequest<ProductPhotosListViewModel>
+    public class GetProductPhotosAsListByProductQuery : IRequest<ProductPhotosListViewModel>
     {
         public int ProductId { get; set; }
 
-        public class
-            GetProductPhotosAsListQueryHandler : IRequestHandler<GetProductPhotosAsListQuery, ProductPhotosListViewModel
-            >
+        public class GetProductPhotosAsListQueryHandler :
+            IRequestHandler<GetProductPhotosAsListByProductQuery, ProductPhotosListViewModel>
         {
             private readonly ISampleAngularContext _context;
             private readonly IMapper _mapper;
@@ -26,7 +25,7 @@ namespace SampleAngular.Application.Storage.Products.Infrastructure.Photos.Queri
                 _mapper = mapper;
             }
 
-            public async Task<ProductPhotosListViewModel> Handle(GetProductPhotosAsListQuery request,
+            public async Task<ProductPhotosListViewModel> Handle(GetProductPhotosAsListByProductQuery request,
                 CancellationToken cancellationToken)
             {
                 return new ProductPhotosListViewModel

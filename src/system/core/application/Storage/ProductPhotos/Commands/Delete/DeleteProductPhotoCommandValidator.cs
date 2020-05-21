@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace SampleAngular.Application.Storage.Products.Infrastructure.Photos.Commands.Delete
+namespace SampleAngular.Application.Storage.ProductPhotos.Commands.Delete
 {
     public class DeleteProductPhotoCommandValidator : AbstractValidator<DeleteProductPhotoCommand>
     {

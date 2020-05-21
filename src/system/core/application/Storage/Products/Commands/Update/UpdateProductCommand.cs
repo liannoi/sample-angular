@@ -5,15 +5,16 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SampleAngular.Application.Common.Interfaces;
+using SampleAngular.Application.Storage.Manufacturers;
 
 namespace SampleAngular.Application.Storage.Products.Commands.Update
 {
     public class UpdateProductCommand : IRequest<ProductLookupDto>
     {
         public int ProductId { get; set; }
-        public int ManufacturerId { get; set; }
         public string Name { get; set; }
         public string ProductNumber { get; set; }
+        public ManufacturerLookupDto Manufacturer { get; set; }
 
         public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, ProductLookupDto>
         {
@@ -33,7 +34,10 @@ namespace SampleAngular.Application.Storage.Products.Commands.Update
                     .Where(e => e.ProductId == request.ProductId)
                     .FirstOrDefaultAsync(cancellationToken);
 
-                fined.ManufacturerId = request.ManufacturerId;
+                fined.Manufacturer = await _context.Manufacturers
+                    .Where(e => e.ManufacturerId == request.Manufacturer.ManufacturerId)
+                    .FirstOrDefaultAsync(cancellationToken);
+
                 fined.Name = request.Name;
                 fined.ProductNumber = request.ProductNumber;
                 _context.Products.Update(fined);

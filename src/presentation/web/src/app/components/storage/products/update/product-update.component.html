@@ -1,0 +1,39 @@
+<div class="row mt-4 mb-3">
+  <div class="col-sm-3">
+    <h2>Create or update product</h2>
+    <hr>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-sm-3">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div class="form-group">
+        <label for="product_name">Name</label>
+        <input class="form-control" formControlName="name" id="product_name" type="text">
+      </div>
+
+      <div class="form-group">
+        <label for="product_number">Product Number</label>
+        <input class="form-control" formControlName="productNumber" id="product_number" type="text">
+      </div>
+
+      <div class="form-group" formGroupName="manufacturer">
+        <label for="manufacturerId">Manufacturer</label>
+        <select class="form-control" formControlName="manufacturerId" id="manufacturerId">
+          <option *ngFor="let item of manufacturers;" [value]="item.manufacturerId">{{item.name}}</option>
+        </select>
+      </div>
+
+      <div class="form-group mt-4">
+        <input class="btn btn-primary" type="submit" value="OK">
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <a [routerLink]="['/products']">Back to List</a>
+  </div>
+</div>

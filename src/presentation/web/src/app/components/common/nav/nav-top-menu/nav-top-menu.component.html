@@ -14,7 +14,12 @@
           </li>
 
           <li class="nav-item">
-            <a [routerLinkActive]="['active']" [routerLink]="['/products']" class="nav-link">Products</a>
+            <a [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']" [routerLink]="['/products']"
+               class="nav-link">Products</a>
+          </li>
+
+          <li class="nav-item">
+            <a [routerLinkActive]="['active']" [routerLink]="['/products/filter']" class="nav-link">Filter</a>
           </li>
         </ul>
 

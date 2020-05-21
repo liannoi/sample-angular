@@ -6,14 +6,14 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SampleAngular.Application.Common.Interfaces;
 
-namespace SampleAngular.Application.Storage.Products.Infrastructure.Photos.Commands.Delete
+namespace SampleAngular.Application.Storage.ProductPhotos.Commands.Delete
 {
     public class DeleteProductPhotoCommand : IRequest<ProductPhotoLookupDto>
     {
         public int PhotoId { get; set; }
 
-        public class
-            DeleteProductPhotoCommandHandler : IRequestHandler<DeleteProductPhotoCommand, ProductPhotoLookupDto>
+        public class DeleteProductPhotoCommandHandler :
+            IRequestHandler<DeleteProductPhotoCommand, ProductPhotoLookupDto>
         {
             private readonly ISampleAngularContext _context;
             private readonly IMapper _mapper;

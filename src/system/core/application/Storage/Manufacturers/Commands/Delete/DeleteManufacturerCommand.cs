@@ -12,8 +12,8 @@ namespace SampleAngular.Application.Storage.Manufacturers.Commands.Delete
     {
         public int ManufacturerId { get; set; }
 
-        public class
-            DeleteManufacturerCommandHandler : IRequestHandler<DeleteManufacturerCommand, ManufacturerLookupDto>
+        public class DeleteManufacturerCommandHandler :
+            IRequestHandler<DeleteManufacturerCommand, ManufacturerLookupDto>
         {
             private readonly ISampleAngularContext _context;
             private readonly IMapper _mapper;

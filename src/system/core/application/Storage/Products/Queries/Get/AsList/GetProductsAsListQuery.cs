@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -5,6 +6,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SampleAngular.Application.Common.Interfaces;
+using SampleAngular.Application.Storage.Products.Models;
 
 namespace SampleAngular.Application.Storage.Products.Queries.Get.AsList
 {
@@ -27,6 +29,7 @@ namespace SampleAngular.Application.Storage.Products.Queries.Get.AsList
                 return new ProductsListViewModel
                 {
                     Products = await _context.Products
+                        .Take(15)
                         .ProjectTo<ProductLookupDto>(_mapper.ConfigurationProvider)
                         .ToListAsync(cancellationToken)
                 };

@@ -58,13 +58,15 @@ namespace SampleAngular.WebAPI.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ManufacturerLookupDto>> Update([FromBody] UpdateManufacturerCommand command)
+        public async Task<ActionResult<ManufacturerLookupDto>> Update(int id,
+            [FromBody] UpdateManufacturerCommand command)
         {
             try
             {
+                command.ManufacturerId = id;
                 return Ok(await Mediator.Send(command));
             }
             catch (ValidationException e)

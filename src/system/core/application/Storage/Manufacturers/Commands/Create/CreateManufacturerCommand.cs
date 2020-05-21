@@ -9,6 +9,7 @@ namespace SampleAngular.Application.Storage.Manufacturers.Commands.Create
 {
     public class CreateManufacturerCommand : IRequest<ManufacturerLookupDto>
     {
+        public int ManufacturerId { get; set; }
         public string Name { get; set; }
 
         public class

@@ -29,7 +29,8 @@ namespace SampleAngular.Application.Storage.Manufacturers.Queries.Get.AsList
                 return new ManufacturersListViewModel
                 {
                     Manufacturers = await _context.Manufacturers
-                        .ProjectTo<ManufacturerLookupDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                        .ProjectTo<ManufacturerLookupDto>(_mapper.ConfigurationProvider)
+                        .ToListAsync(cancellationToken)
                 };
             }
         }
