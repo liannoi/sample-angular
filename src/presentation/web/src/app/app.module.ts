@@ -19,7 +19,7 @@ import {ManufacturerGetMasterComponent} from './components/storage/manufacturers
 import {ProductGetMasterComponent} from './components/storage/products/get/master/product-get-master.component';
 import {ProductUpdateComponent} from './components/storage/products/update/product-update.component';
 import {ManufacturerUpdateComponent} from './components/storage/manufacturers/update/manufacturer-update.component';
-import { ProductGetFilterComponent } from './components/storage/products/get/filter/product-get-filter.component';
+import {ProductGetFilterComponent} from './components/storage/products/get/filter/product-get-filter.component';
 
 @NgModule({
   declarations: [

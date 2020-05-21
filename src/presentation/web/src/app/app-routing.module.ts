@@ -7,6 +7,7 @@ import {ManufacturerGetMasterComponent} from './components/storage/manufacturers
 import {ProductGetMasterComponent} from './components/storage/products/get/master/product-get-master.component';
 import {ProductUpdateComponent} from './components/storage/products/update/product-update.component';
 import {ManufacturerUpdateComponent} from './components/storage/manufacturers/update/manufacturer-update.component';
+import {ProductGetFilterComponent} from './components/storage/products/get/filter/product-get-filter.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'manufacturers/update/:id', component: ManufacturerUpdateComponent},
   {path: 'products', component: ProductGetMasterComponent},
   {path: 'products/update/:id', component: ProductUpdateComponent},
+  {path: 'products/filter', component: ProductGetFilterComponent},
   {path: '**', component: MsgErrorComponent},
 ];
 
