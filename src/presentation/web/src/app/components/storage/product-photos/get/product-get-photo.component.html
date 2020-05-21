@@ -1,0 +1,30 @@
+<div *ngIf="productPhotos.length != 0; else noPhotosAlert">
+  <div class="row mt-5 mb-4 text-center">
+    <div class="col-sm-12">
+      <h2>Photos</h2>
+    </div>
+  </div>
+
+  <div class="row mb-4 text-center">
+    <div class="col-sm-12">
+      <a (click)="redirectToAdd()" class="link-create btn btn-primary text-white">Add</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card-columns">
+      <div *ngFor="let item of productPhotos;" class="card mb-2">
+        <div class="card-header">
+          <button (click)="redirectToDelete(item.photoId)" class="btn btn-outline-danger btn-sm">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </button>
+        </div>
+        <img [src]="item.path" alt="Product image" class="card-img-top">
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noPhotosAlert>
+  <app-msg-default text="This product doesn't contain <br> any photos."></app-msg-default>
+</ng-template>

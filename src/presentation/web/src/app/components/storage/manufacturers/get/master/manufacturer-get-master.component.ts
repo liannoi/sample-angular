@@ -37,6 +37,6 @@ export class ManufacturerGetMasterComponent implements OnInit, OnDestroy {
   }
 
   public redirectToUpdate(id: number = 0): void {
-    this.router.navigate(['/manufacturers/update', id]);
+    this.router.navigate(['/manufacturer/update', id]);
   }
 }

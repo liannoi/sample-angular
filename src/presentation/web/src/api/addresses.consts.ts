@@ -3,3 +3,4 @@ export const baseApiAddress: string = 'http://liannoi01-001-site1.htempurl.com/a
 
 export const manufacturersEndpoint: string = `${baseApiAddress}/manufacturers`;
 export const productsEndpoint: string = `${baseApiAddress}/products`;
+export const productPhotosEndpoint: string = `${baseApiAddress}/productPhotos`;

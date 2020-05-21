@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -19,7 +20,8 @@ import {ManufacturerGetMasterComponent} from './components/storage/manufacturers
 import {ProductGetMasterComponent} from './components/storage/products/get/master/product-get-master.component';
 import {ProductUpdateComponent} from './components/storage/products/update/product-update.component';
 import {ManufacturerUpdateComponent} from './components/storage/manufacturers/update/manufacturer-update.component';
-import {ProductGetFilterComponent} from './components/storage/products/get/filter/product-get-filter.component';
+import {ProductGetFilterComponent} from './components/storage/products-filter/product-get-filter.component';
+import {ProductGetPhotoComponent} from './components/storage/product-photos/get/product-get-photo.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import {ProductGetFilterComponent} from './components/storage/products/get/filte
     ProductUpdateComponent,
     ManufacturerUpdateComponent,
     ProductGetFilterComponent,
+    ProductGetPhotoComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ import {ProductGetFilterComponent} from './components/storage/products/get/filte
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    CommonModule,
   ],
   bootstrap: [AppComponent],
 })

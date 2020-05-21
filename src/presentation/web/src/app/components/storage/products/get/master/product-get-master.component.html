@@ -27,6 +27,11 @@
           <td>{{product.name}}</td>
           <td>{{product.manufacturer.name}}</td>
           <td>
+            <a (click)="redirectToPhotos(product.productId)"
+               class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder">
+              <fa-icon [icon]="faImage"></fa-icon>
+            </a>
+
             <a (click)="redirectToUpdate(product.productId)"
                class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder">
               <fa-icon [icon]="faPen" class="pr-1"></fa-icon>

@@ -4,7 +4,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
-import {faPen, faTimes, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {faImage, faPen, faTimes, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 
 import {ProductsService} from '../../../../../../api/services/products.service';
 import {ProductsListModel} from '../../../../../../api/models/products-list.model';
@@ -16,6 +16,7 @@ import {ProductsListModel} from '../../../../../../api/models/products-list.mode
   providers: [ProductsService],
 })
 export class ProductGetMasterComponent implements OnInit, OnDestroy {
+  public faImage: IconDefinition = faImage;
   public faPen: IconDefinition = faPen;
   public faTimes: IconDefinition = faTimes;
   public viewModel: ProductsListModel = new ProductsListModel();
@@ -37,6 +38,10 @@ export class ProductGetMasterComponent implements OnInit, OnDestroy {
   }
 
   public redirectToUpdate(id: number = 0): void {
-    this.router.navigate(['/products/update', id]);
+    this.router.navigate(['/product/update', id]);
+  }
+
+  public redirectToPhotos(id: number): void {
+    this.router.navigate(['/product/photos', id]);
   }
 }

@@ -4,11 +4,11 @@ import {Subject} from 'rxjs';
 
 import {faSearch, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 
-import {ManufacturersService} from '../../../../../../api/services/manufacturers.service';
-import {ManufacturerModel} from '../../../../../../api/models/manufacturer.model';
+import {ManufacturersService} from '../../../../api/services/manufacturers.service';
+import {ManufacturerModel} from '../../../../api/models/manufacturer.model';
 import {takeUntil} from 'rxjs/operators';
-import {ManufacturersListModel} from '../../../../../../api/models/manufacturers-list.model';
-import {FilterViewModel} from '../../../../../../api/models/filter-view.model';
+import {ManufacturersListModel} from '../../../../api/models/manufacturers-list.model';
+import {FilterViewModel} from '../../../../api/models/filter-view.model';
 
 @Component({
   selector: 'app-product-get-filter',
