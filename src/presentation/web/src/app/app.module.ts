@@ -20,8 +20,8 @@ import {ManufacturerGetMasterComponent} from './components/storage/manufacturers
 import {ProductGetMasterComponent} from './components/storage/products/get/master/product-get-master.component';
 import {ProductUpdateComponent} from './components/storage/products/update/product-update.component';
 import {ManufacturerUpdateComponent} from './components/storage/manufacturers/update/manufacturer-update.component';
-import {ProductGetFilterComponent} from './components/storage/products-filter/product-get-filter.component';
-import {ProductGetPhotoComponent} from './components/storage/product-photos/get/product-get-photo.component';
+import {ProductsFilterComponent} from './components/storage/products-filter/products-filter.component';
+import {ProductPhotosGetComponent} from './components/storage/product-photos/get/product-photos-get.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +37,8 @@ import {ProductGetPhotoComponent} from './components/storage/product-photos/get/
     ProductGetMasterComponent,
     ProductUpdateComponent,
     ManufacturerUpdateComponent,
-    ProductGetFilterComponent,
-    ProductGetPhotoComponent,
+    ProductsFilterComponent,
+    ProductPhotosGetComponent,
   ],
   imports: [
     BrowserModule,

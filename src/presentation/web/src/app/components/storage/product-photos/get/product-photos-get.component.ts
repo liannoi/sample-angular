@@ -9,12 +9,12 @@ import {ProductPhotoModel} from '../../../../../api/models/product-photo.model';
 import {ProductPhotosService} from '../../../../../api/services/product-photos.service';
 
 @Component({
-  selector: 'app-product-get-photo',
-  templateUrl: './product-get-photo.component.html',
-  styleUrls: ['./product-get-photo.component.css'],
+  selector: 'app-product-photos-get',
+  templateUrl: './product-photos-get.component.html',
+  styleUrls: ['./product-photos-get.component.css'],
   providers: [ProductPhotosService],
 })
-export class ProductGetPhotoComponent implements OnInit, OnDestroy {
+export class ProductPhotosGetComponent implements OnInit, OnDestroy {
   public productPhotos: ProductPhotoModel[] = [];
   public faTimes: IconDefinition = faTimes;
   private stop$ = new Subject<void>();

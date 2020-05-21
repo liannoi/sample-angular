@@ -11,12 +11,12 @@ import {ManufacturersListModel} from '../../../../api/models/manufacturers-list.
 import {FilterViewModel} from '../../../../api/models/filter-view.model';
 
 @Component({
-  selector: 'app-product-get-filter',
-  templateUrl: './product-get-filter.component.html',
-  styleUrls: ['./product-get-filter.component.css'],
+  selector: 'app-products-filter',
+  templateUrl: './products-filter.component.html',
+  styleUrls: ['./products-filter.component.css'],
   providers: [ManufacturersService],
 })
-export class ProductGetFilterComponent implements OnInit, OnDestroy {
+export class ProductsFilterComponent implements OnInit, OnDestroy {
   public faSearch: IconDefinition = faSearch;
   public form: FormGroup;
   public manufacturers: ManufacturerModel[];
