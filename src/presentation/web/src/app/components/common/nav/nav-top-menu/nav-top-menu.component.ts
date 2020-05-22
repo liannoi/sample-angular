@@ -6,5 +6,5 @@ import {Component} from '@angular/core';
   styleUrls: ['./nav-top-menu.component.css'],
 })
 export class NavTopMenuComponent {
-  public isCollapsed: boolean = true;
+  public isCollapsed = true;
 }

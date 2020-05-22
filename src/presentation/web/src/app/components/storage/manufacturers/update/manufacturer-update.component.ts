@@ -15,12 +15,13 @@ import {ManufacturerModel} from '../../../../../api/models/manufacturer.model';
 export class ManufacturerUpdateComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public model: ManufacturerModel;
+  public isInitialized = false;
   private stop$ = new Subject<void>();
 
   constructor(private manufacturersService: ManufacturersService, private activatedRoute: ActivatedRoute, private router: Router) {
   }
 
-  public ngOnInit(): void {
+  public ngOnInit() {
     this.form = new FormGroup({
       manufacturerId: new FormControl(''),
       name: new FormControl(''),
@@ -29,41 +30,49 @@ export class ManufacturerUpdateComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.forEach((params: Params) => {
       let id = params['id'];
 
-      if (id != 0) {
-        this.manufacturersService.getById(id)
-          .pipe(takeUntil(this.stop$))
-          .subscribe((result: ManufacturerModel) => this.initializeInputs(result), error => console.log(error));
-      } else {
+      if (id == 0) {
         this.initializeInputs();
+        return;
       }
+
+      this.manufacturersService.getById(id)
+        .pipe(takeUntil(this.stop$))
+        .subscribe((result: ManufacturerModel) => this.initializeInputs(result), error => console.log(error));
     });
   }
 
-  public ngOnDestroy(): void {
+  public ngOnDestroy() {
     this.stop$.next();
     this.stop$.complete();
   }
 
-  public onSubmit(): void {
+  public onSubmit() {
     let result = this.form.value;
 
     if (this.model.manufacturerId != 0) {
       this.manufacturersService.update(result.manufacturerId, result)
         .pipe(takeUntil(this.stop$))
         .subscribe(() => this.redirectToParent());
-    } else {
-      this.manufacturersService.create(result)
-        .pipe(takeUntil(this.stop$))
-        .subscribe(() => this.redirectToParent());
+
+      return;
     }
+
+    this.manufacturersService.create(result)
+      .pipe(takeUntil(this.stop$))
+      .subscribe(() => this.redirectToParent());
   }
 
-  private redirectToParent(): Promise<boolean> {
+  public header(): string {
+    return this.model.manufacturerId == 0 ? 'Create manufacturer' : 'Update manufacturer';
+  }
+
+  private redirectToParent() {
     return this.router.navigate(['/manufacturers']);
   }
 
-  private initializeInputs(model: ManufacturerModel = new ManufacturerModel()): void {
+  private initializeInputs(model = new ManufacturerModel()) {
     this.model = model;
     this.form.patchValue(this.model);
+    this.isInitialized = true;
   }
 }

@@ -1,6 +1,6 @@
 import {ManufacturerModel} from './manufacturer.model';
 
 export class ProductModel {
-  constructor(public productId: number = 0, public name: string = '', public productNumber: string = '', public manufacturer: ManufacturerModel = new ManufacturerModel()) {
+  constructor(public productId = 0, public name = '', public productNumber = '', public manufacturer = new ManufacturerModel()) {
   }
 }

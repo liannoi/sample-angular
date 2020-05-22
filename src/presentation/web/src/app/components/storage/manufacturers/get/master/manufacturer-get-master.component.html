@@ -5,11 +5,7 @@
     </div>
   </div>
 
-  <div class="row mb-4 text-center">
-    <div class="col-sm-12">
-      <a (click)="redirectToUpdate()" class="link-create btn btn-primary text-white">Create</a>
-    </div>
-  </div>
+  <app-link-create (click)="redirectToUpdate()" [title]="'Create'"></app-link-create>
 
   <div class="row">
     <div class="offset-sm-3"></div>
@@ -32,7 +28,7 @@
               Edit
             </a>
 
-            <a (click)="processDelete(item.manufacturerId)"
+            <a (click)="requestDelete(item.manufacturerId)"
                class="btn btn-light border btn-sm pl-3 pr-3 font-weight-bolder">
               <fa-icon [icon]="faTimes" class="pr-1"></fa-icon>
               Delete

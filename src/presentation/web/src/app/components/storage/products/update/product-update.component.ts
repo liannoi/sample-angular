@@ -18,13 +18,14 @@ import {ManufacturersListModel} from '../../../../../api/models/manufacturers-li
 export class ProductUpdateComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public model: ProductModel;
+  public isInitialized = false;
   public manufacturers: ManufacturerModel[];
   private stop$ = new Subject<void>();
 
   constructor(private activatedRoute: ActivatedRoute, private productsService: ProductsService, private manufacturerService: ManufacturersService, private router: Router) {
   }
 
-  public ngOnInit(): void {
+  public ngOnInit() {
     this.form = new FormGroup({
       name: new FormControl(''),
       productNumber: new FormControl(''),
@@ -41,43 +42,57 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.forEach((params: Params) => {
       let id = params['id'];
 
-      if (id != 0) {
-        this.productsService.getById(id)
-          .pipe(takeUntil(this.stop$))
-          .subscribe((result: ProductModel) => this.initializeInputs(result), error => console.log(error));
-      } else {
+      if (id == 0) {
         this.initializeInputs();
+        return;
       }
+
+      this.productsService.getById(id)
+        .pipe(takeUntil(this.stop$))
+        .subscribe((result: ProductModel) => this.initializeInputs(result), error => console.log(error));
     });
   }
 
-  public ngOnDestroy(): void {
+  public ngOnDestroy() {
     this.stop$.next();
     this.stop$.complete();
   }
 
   public onSubmit() {
-    let id: number = this.model.productId;
-    this.model = this.form.getRawValue();
-    this.model.productId = id;
+    this.model = this.prepareModel();
 
-    if (id != 0) {
-      this.productsService.update(id, this.model)
+    if (this.model.productId != 0) {
+      this.productsService.update(this.model.productId, this.model)
         .pipe(takeUntil(this.stop$))
         .subscribe(() => this.redirectToParent());
-    } else {
-      this.productsService.create(this.model)
-        .pipe(takeUntil(this.stop$))
-        .subscribe(() => this.redirectToParent());
+
+      return;
     }
+
+    this.productsService.create(this.model)
+      .pipe(takeUntil(this.stop$))
+      .subscribe(() => this.redirectToParent());
   }
 
-  private redirectToParent(): Promise<boolean> {
+  public header(): string {
+    return this.model.productId == 0 ? 'Create product' : 'Update product';
+  }
+
+  private prepareModel() {
+    let tmp = this.form.getRawValue();
+    tmp.productId = this.model.productId;
+    tmp.manufacturer.manufacturerId = parseInt(tmp.manufacturer.manufacturerId);
+
+    return tmp;
+  }
+
+  private redirectToParent() {
     return this.router.navigate(['/products']);
   }
 
-  private initializeInputs(model: ProductModel = new ProductModel()): void {
+  private initializeInputs(model = new ProductModel()) {
     this.model = model;
     this.form.patchValue(this.model);
+    this.isInitialized = true;
   }
 }

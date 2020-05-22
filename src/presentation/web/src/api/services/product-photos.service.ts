@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
 import {catchError, delay} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 import {AbstractApiService} from '../abstract-api.service';
 import {ProductPhotoModel} from '../models/product-photo.model';

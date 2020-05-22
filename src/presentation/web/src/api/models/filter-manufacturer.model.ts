@@ -1,4 +1,4 @@
 export class FilterManufacturerModel {
-  constructor(public manufacturerId: number = 0, public name: string = '', public isChecked: boolean = false) {
+  constructor(public manufacturerId = 0, public name = '', public isChecked = false) {
   }
 }

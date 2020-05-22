@@ -1,4 +1,4 @@
 export class ManufacturerModel {
-  constructor(public manufacturerId: number = 0, public name: string = '') {
+  constructor(public manufacturerId = 0, public name = '') {
   }
 }

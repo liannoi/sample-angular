@@ -1,4 +1,4 @@
 export class ProductPhotoModel {
-  constructor(public photoId: number, public productId: number, public path: string) {
+  constructor(public photoId = 0, public productId = 0, public path = '') {
   }
 }
