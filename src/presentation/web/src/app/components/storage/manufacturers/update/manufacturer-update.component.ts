@@ -62,7 +62,7 @@ export class ManufacturerUpdateComponent implements OnInit, OnDestroy {
       .subscribe(() => this.redirectToParent());
   }
 
-  public header(): string {
+  public header() {
     return this.model.manufacturerId == 0 ? 'Create manufacturer' : 'Update manufacturer';
   }
 

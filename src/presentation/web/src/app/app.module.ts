@@ -24,6 +24,7 @@ import {ProductsFilterComponent} from './components/storage/products-filter/prod
 import {ProductPhotosGetComponent} from './components/storage/product-photos/get/product-photos-get.component';
 import {LoadingAlertComponent} from './components/common/alerts/loading/loading-alert.component';
 import {LinkCreateComponent} from './components/common/link-create/link-create.component';
+import {FileUploadComponent} from './components/common/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {LinkCreateComponent} from './components/common/link-create/link-create.c
     ProductPhotosGetComponent,
     LoadingAlertComponent,
     LinkCreateComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,

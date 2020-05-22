@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {catchError, delay} from 'rxjs/operators';
-import {Observable} from 'rxjs';
 
 import {AbstractApiService} from '../abstract-api.service';
 import {ProductPhotoModel} from '../models/product-photo.model';
@@ -15,7 +14,7 @@ export class ProductPhotosService extends AbstractApiService<ProductPhotoModel, 
     this.endpoint = productPhotosEndpoint;
   }
 
-  public getAll(id: number = 0, timeout?: number): Observable<ProductPhotosListModel> {
+  public getAll(id = 0, timeout?: number) {
     if (id == 0) return super.getAll(timeout);
 
     return this.http.get<ProductPhotosListModel>(`${this.endpoint}/${id}`)

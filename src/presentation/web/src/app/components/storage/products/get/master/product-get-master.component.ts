@@ -38,15 +38,15 @@ export class ProductGetMasterComponent implements OnInit, OnDestroy {
     this.stop$.complete();
   }
 
-  public redirectToUpdate(id = 0) {
+  public onRedirectToUpdate(id = 0) {
     this.router.navigate(['/product/update', id]);
   }
 
-  public redirectToPhotos(id: number) {
+  public onRedirectToPhotos(id: number) {
     this.router.navigate(['/product/photos', id]);
   }
 
-  public requestDelete(id: number) {
+  public onRequestDelete(id: number) {
     this.askToDelete().then((result: SweetAlertResult) => {
       if (!result.value) return;
 

@@ -37,11 +37,11 @@ export class ManufacturerGetMasterComponent implements OnInit, OnDestroy {
     this.stop$.complete();
   }
 
-  public redirectToUpdate(id = 0) {
+  public onRedirectToUpdate(id = 0) {
     this.router.navigate(['/manufacturer/update', id]);
   }
 
-  public requestDelete(id: number) {
+  public onRequestDelete(id: number) {
     this.askToDelete().then((result: SweetAlertResult) => {
       if (!result.value) return;
 

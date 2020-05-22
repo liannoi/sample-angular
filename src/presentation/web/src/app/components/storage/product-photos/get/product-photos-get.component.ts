@@ -1,9 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import {faTimes} from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 import {ProductPhotoModel} from '../../../../../api/models/product-photo.model';
 import {ProductPhotosService} from '../../../../../api/services/product-photos.service';
@@ -14,13 +16,14 @@ import {ProductPhotosListModel} from '../../../../../api/models/product-photos-l
   templateUrl: './product-photos-get.component.html',
   providers: [ProductPhotosService],
 })
-export class ProductPhotosGetComponent implements OnInit, OnDestroy {
-  public productPhotos: ProductPhotoModel[] = [];
+export class ProductPhotosGetComponent implements OnDestroy {
+  public viewModel = new ProductPhotosListModel();
   public faTimes = faTimes;
   public isInitialized = false;
   private stop$ = new Subject<void>();
 
-  constructor(private productPhotosService: ProductPhotosService, private activatedRoute: ActivatedRoute) {
+  constructor(private productPhotosService: ProductPhotosService, private activatedRoute: ActivatedRoute, titleService: Title) {
+    titleService.setTitle('Gallery - Sample Angular');
   }
 
   public ngOnInit() {
@@ -35,28 +38,32 @@ export class ProductPhotosGetComponent implements OnInit, OnDestroy {
     this.stop$.complete();
   }
 
-  public redirectToUpload() {
-    this.productPhotosService.create(new ProductPhotoModel(104, this.productPhotos[0].productId, 'http://dummyimage.com/1795x772.png/ff4444/ffffff'))
-      .pipe(takeUntil(this.stop$))
-      .subscribe((result: ProductPhotoModel) => this.processUpload(result), error => console.error(error));
-  }
-
-  public requestDelete(id: number) {
+  public onRequestDelete(id: number) {
     this.productPhotosService.delete(id)
       .pipe(takeUntil(this.stop$))
-      .subscribe(result => this.processDelete(result), error => console.error(error));
-  }
-
-  private processUpload(result: ProductPhotoModel) {
-    console.log(result);
+      .subscribe((result: ProductPhotoModel) => this.processDelete(result.photoId), error => console.error(error));
   }
 
   private processInitialize(result: ProductPhotosListModel) {
-    this.productPhotos = result.productPhotos;
+    this.viewModel.productPhotos = result.productPhotos;
     this.isInitialized = true;
   }
 
-  private processDelete(result: ProductPhotoModel) {
-    console.log(result);
+  private processDelete(id: number) {
+    this.viewModel.productPhotos.forEach((item, index) => {
+      if (item.photoId === id) this.viewModel.productPhotos.splice(index, 1);
+    });
+
+    this.notifySuccessDelete();
+  }
+
+  private notifySuccessDelete() {
+    Swal.fire({
+      position: 'bottom-end',
+      icon: 'success',
+      title: 'Photo successfully deleted',
+      showConfirmButton: false,
+      timer: 2400,
+    });
   }
 }

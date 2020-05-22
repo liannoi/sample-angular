@@ -5,7 +5,7 @@
     </div>
   </div>
 
-  <app-link-create (click)="redirectToUpdate()" [title]="'Create'"></app-link-create>
+  <app-link-create (click)="onRedirectToUpdate()" [title]="'Create'"></app-link-create>
 
   <div class="row">
     <div class="offset-sm-2"></div>
@@ -23,18 +23,18 @@
           <td>{{product.name}}</td>
           <td>{{product.manufacturer.name}}</td>
           <td>
-            <a (click)="redirectToPhotos(product.productId)"
+            <a (click)="onRedirectToPhotos(product.productId)"
                class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder">
               <fa-icon [icon]="faImage"></fa-icon>
             </a>
 
-            <a (click)="redirectToUpdate(product.productId)"
+            <a (click)="onRedirectToUpdate(product.productId)"
                class="btn btn-light border btn-sm mr-2 pl-3 pr-3 font-weight-bolder">
               <fa-icon [icon]="faPen" class="pr-1"></fa-icon>
               Edit
             </a>
 
-            <a (click)="requestDelete(product.productId)"
+            <a (click)="onRequestDelete(product.productId)"
                class="btn btn-light border btn-sm pl-3 pr-3 font-weight-bolder">
               <fa-icon [icon]="faTimes" class="pr-1"></fa-icon>
               Delete
