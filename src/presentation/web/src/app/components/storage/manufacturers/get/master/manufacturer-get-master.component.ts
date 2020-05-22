@@ -39,4 +39,15 @@ export class ManufacturerGetMasterComponent implements OnInit, OnDestroy {
   public redirectToUpdate(id: number = 0): void {
     this.router.navigate(['/manufacturer/update', id]);
   }
+
+  public processDelete(id: number): void {
+    this.manufacturersService.delete(id)
+      .pipe(takeUntil(this.stop$))
+      .subscribe(result => {
+        console.log(result);
+        this.viewModel.manufacturers.forEach((item, index) => {
+          if (item.manufacturerId === id) this.viewModel.manufacturers.splice(index, 1);
+        });
+      }, error => console.error(error));
+  }
 }

@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'manufacturer/update/:id', component: ManufacturerUpdateComponent},
   {path: 'products', component: ProductGetMasterComponent},
   {path: 'product/update/:id', component: ProductUpdateComponent},
-  {path: 'products/products-filter', component: ProductsFilterComponent},
+  {path: 'products/filter', component: ProductsFilterComponent},
   {path: 'product/photos/:id', component: ProductPhotosGetComponent},
   {path: '**', component: MsgErrorComponent},
 ];

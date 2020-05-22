@@ -32,7 +32,8 @@
               Edit
             </a>
 
-            <a class="btn btn-light border btn-sm pl-3 pr-3 font-weight-bolder disabled">
+            <a (click)="processDelete(item.manufacturerId)"
+               class="btn btn-light border btn-sm pl-3 pr-3 font-weight-bolder">
               <fa-icon [icon]="faTimes" class="pr-1"></fa-icon>
               Delete
             </a>
