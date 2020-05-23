@@ -29,6 +29,7 @@ namespace SampleAngular.Application.Storage.Products.Queries.Get.AsList
                 return new ProductsListViewModel
                 {
                     Products = await _context.Products
+                        .OrderByDescending(product => product.ProductId)
                         .Take(15)
                         .ProjectTo<ProductLookupDto>(_mapper.ConfigurationProvider)
                         .ToListAsync(cancellationToken)

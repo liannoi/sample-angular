@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SampleAngular.Application.Common.Interfaces;
 using SampleAngular.Application.Storage.Products;
 using SampleAngular.Application.Storage.Products.Commands.Create;
 using SampleAngular.Application.Storage.Products.Commands.Delete;
@@ -15,13 +14,6 @@ namespace SampleAngular.WebAPI.Controllers
 {
     public class ProductsController : BaseController
     {
-        private readonly IParentFiller<ProductLookupDto> _filler;
-
-        public ProductsController(IParentFiller<ProductLookupDto> filler)
-        {
-            _filler = filler;
-        }
-
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -29,10 +21,7 @@ namespace SampleAngular.WebAPI.Controllers
         {
             try
             {
-                var products = await Mediator.Send(new GetProductsAsListQuery());
-                foreach (var product in products.Products) await _filler.FillParent(Mediator, product);
-
-                return Ok(products);
+                return Ok(await Mediator.Send(new GetProductsAsListQuery()));
             }
             catch (ValidationException e)
             {
@@ -62,10 +51,7 @@ namespace SampleAngular.WebAPI.Controllers
         {
             try
             {
-                var product = await Mediator.Send(new GetProductQuery {ProductId = id});
-                await _filler.FillParent(Mediator, product);
-
-                return Ok(product);
+                return Ok(await Mediator.Send(new GetProductQuery {ProductId = id}));
             }
             catch (ValidationException e)
             {
