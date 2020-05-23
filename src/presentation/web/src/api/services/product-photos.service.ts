@@ -21,4 +21,9 @@ export class ProductPhotosService extends AbstractApiService<ProductPhotoModel, 
       .pipe(catchError(this.handleError))
       .pipe(delay(timeout > 0 ? timeout : 0));
   }
+
+  public createProductPhoto(formData: FormData) {
+    return this.http.post<ProductPhotoModel>(`${this.endpoint}`, formData)
+      .pipe(catchError(this.handleError));
+  }
 }

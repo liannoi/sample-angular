@@ -54,11 +54,12 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductPhotoLookupDto>> Create([FromBody] CreateProductPhotoCommand command)
+        public async Task<ActionResult<ProductPhotoLookupDto>> Create()
         {
             try
             {
-                return Ok(await Mediator.Send(command));
+                var tmp = Request.Form.Files[0];
+                return Ok(await Mediator.Send(new CreateProductPhotoCommand()));
             }
             catch (ValidationException e)
             {

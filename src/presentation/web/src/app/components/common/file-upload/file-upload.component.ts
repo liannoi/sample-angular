@@ -29,9 +29,10 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.activatedRoute.params.forEach((params: Params) => {
       this._productId = params['id'];
+
       this.productPhotosService.getAll(this.productId)
         .pipe(takeUntil(this.stop$))
-        .subscribe((result: ProductPhotosListModel) => this.processInitialize(result), error => console.error(error));
+        .subscribe((result: ProductPhotosListModel) => this.viewModel.productPhotos = result.productPhotos, error => console.error(error));
     });
   }
 
@@ -51,27 +52,12 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   };
 
   public onRequestUpload() {
-    // DEBUG
-    // @ts-ignore
-    for (var p of this.formData) {
-      console.log(p);
-    }
-
-    this.productPhotosService.create(new ProductPhotoModel(0, this.productId, 'http://dummyimage.com/1795x772.png/ff4444/ffffff'))
+    this.productPhotosService.createProductPhoto(this.formData)
       .pipe(takeUntil(this.stop$))
-      .subscribe((result: ProductPhotoModel) => this.processUpload(result), error => console.error(error));
+      .subscribe((result: ProductPhotoModel) => window.location.reload(), error => console.error(error));
   }
 
   public uploadMessage() {
     return !this.formData ? 'Choose file...' : 'Ready!';
-  }
-
-  private processInitialize(result: ProductPhotosListModel) {
-    this.viewModel.productPhotos = result.productPhotos;
-  }
-
-  private processUpload(result: ProductPhotoModel) {
-    console.log(result);
-    window.location.reload();
   }
 }
