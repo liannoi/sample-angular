@@ -2,37 +2,31 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SampleAngular.Application.Common.Interfaces;
 using SampleAngular.Application.Storage.Products;
 using SampleAngular.Application.Storage.Products.Commands.Create;
 using SampleAngular.Application.Storage.Products.Commands.Delete;
 using SampleAngular.Application.Storage.Products.Commands.Update;
-using SampleAngular.Application.Storage.Products.Models;
 using SampleAngular.Application.Storage.Products.Queries.Get;
 using SampleAngular.Application.Storage.Products.Queries.Get.AsList;
+using SampleAngular.Infrastructure.Common.Pagination;
+using SampleAngular.Infrastructure.Pagination;
 
 namespace SampleAngular.WebAPI.Controllers
 {
     public class ProductsController : BaseController
     {
-        private readonly IParentFiller<ProductLookupDto> _filler;
-
-        public ProductsController(IParentFiller<ProductLookupDto> filler)
-        {
-            _filler = filler;
-        }
-
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductsListViewModel>> GetAll()
+        public async Task<ActionResult<ProductsListViewModel>> GetAll(int page = 1, int limit = 10)
         {
             try
             {
-                var products = await Mediator.Send(new GetProductsAsListQuery());
-                foreach (var product in products.Products) await _filler.FillParent(Mediator, product);
-
-                return Ok(products);
+                return Ok(await Mediator.Send(new GetProductsAsListQuery
+                {
+                    Info = new ProductsPagingViewModel
+                        {PagingDetails = new PagingDetails {CurrentPage = page, ItemsPerPage = limit}}
+                }));
             }
             catch (ValidationException e)
             {
@@ -62,10 +56,7 @@ namespace SampleAngular.WebAPI.Controllers
         {
             try
             {
-                var product = await Mediator.Send(new GetProductQuery {ProductId = id});
-                await _filler.FillParent(Mediator, product);
-
-                return Ok(product);
+                return Ok(await Mediator.Send(new GetProductQuery {ProductId = id}));
             }
             catch (ValidationException e)
             {

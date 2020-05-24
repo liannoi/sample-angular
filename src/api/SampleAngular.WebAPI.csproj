@@ -18,5 +18,14 @@
       <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
     </ItemGroup>
 
+    <ItemGroup>
+        <Content Include="res\**">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="res\product-photos" />
+    </ItemGroup>
+    
 </Project>

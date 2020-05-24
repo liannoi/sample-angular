@@ -2,8 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SampleAngular.Application.Common.Interfaces;
-using SampleAngular.Application.Storage.Products;
-using SampleAngular.Infrastructure.Fillers;
+using SampleAngular.Application.Common.Interfaces.Pagination;
+using SampleAngular.Infrastructure.Common.Pagination;
 using SampleAngular.Infrastructure.Persistence;
 
 namespace SampleAngular.Infrastructure
@@ -18,7 +18,7 @@ namespace SampleAngular.Infrastructure
 
             services.AddScoped<ISampleAngularContext>(provider => provider.GetService<SampleAngularContext>());
 
-            services.AddTransient<IParentFiller<ProductLookupDto>, ProductFiller>();
+            services.AddTransient<IPagingDetails, PagingDetails>();
 
             return services;
         }

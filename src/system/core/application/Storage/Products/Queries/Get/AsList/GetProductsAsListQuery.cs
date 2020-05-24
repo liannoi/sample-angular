@@ -4,14 +4,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using SampleAngular.Application.Common.Interfaces;
-using SampleAngular.Application.Storage.Products.Models;
+using SampleAngular.Application.Common.Interfaces.Pagination;
 
 namespace SampleAngular.Application.Storage.Products.Queries.Get.AsList
 {
     public class GetProductsAsListQuery : IRequest<ProductsListViewModel>
     {
+        public IAbstractPagingViewModel<ProductLookupDto> Info { get; set; }
+
         public class GetProductsAsListQueryHandler : IRequestHandler<GetProductsAsListQuery, ProductsListViewModel>
         {
             private readonly ISampleAngularContext _context;
@@ -26,13 +27,10 @@ namespace SampleAngular.Application.Storage.Products.Queries.Get.AsList
             public async Task<ProductsListViewModel> Handle(GetProductsAsListQuery request,
                 CancellationToken cancellationToken)
             {
+                request.Info.Collection = _context.Products.ProjectTo<ProductLookupDto>(_mapper.ConfigurationProvider);
+
                 return new ProductsListViewModel
-                {
-                    Products = await _context.Products
-                        .Take(15)
-                        .ProjectTo<ProductLookupDto>(_mapper.ConfigurationProvider)
-                        .ToListAsync(cancellationToken)
-                };
+                    {Pagination = request.Info.PagingDetails, Products = request.Info.EntitiesPerPage.ToList()};
             }
         }
     }

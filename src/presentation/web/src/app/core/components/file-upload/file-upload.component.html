@@ -1,0 +1,18 @@
+<div class="row mb-4">
+  <div class="offset-sm-4"></div>
+
+  <div class="col-sm-4">
+    <div class="input-group mb-3">
+      <div class="custom-file">
+        <input #file (change)="onFileChanged(file.files)" class="custom-file-input" id="product_photo" type="file">
+        <label class="custom-file-label" for="product_photo">{{uploadMessage()}}</label>
+      </div>
+
+      <div [class.cursor-not-allowed]="!formData" class="input-group-append">
+        <a (click)="onRequestUpload()" [class.disabled]="!formData" class="input-group-text btn">Upload</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="offset-sm-4"></div>
+</div>

@@ -1,19 +1,21 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {HomeComponent} from './components/common/homes/main/home.component';
-import {MsgErrorComponent} from './components/common/msg/msg-error/msg-error.component';
-import {ManufacturerGetMasterComponent} from './components/storage/manufacturers/get/master/manufacturer-get-master.component';
-import {ProductGetMasterComponent} from './components/storage/products/get/master/product-get-master.component';
-import {ProductUpdateComponent} from './components/storage/products/update/product-update.component';
-import {ManufacturerUpdateComponent} from './components/storage/manufacturers/update/manufacturer-update.component';
+import {HomeComponent} from './shared/components/home/home.component';
+import {MsgErrorComponent} from './core/components/msg/msg-error/msg-error.component';
+import {ManufacturerListComponent} from './manufacturers/manufacturer-list/manufacturer-list.component';
+import {ProductListComponent} from './products/product-list/product-list.component';
+import {ProductComponent} from './products/product/product.component';
+import {ManufacturerComponent} from './manufacturers/manufacturer/manufacturer.component';
+import {ProductPhotoListComponent} from './product-photos/product-photo-list/product-photo-list.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'manufacturers', component: ManufacturerGetMasterComponent},
-  {path: 'manufacturers/update/:id', component: ManufacturerUpdateComponent},
-  {path: 'products', component: ProductGetMasterComponent},
-  {path: 'products/update/:id', component: ProductUpdateComponent},
+  {path: 'manufacturers', component: ManufacturerListComponent},
+  {path: 'manufacturers/:id', component: ManufacturerComponent},
+  {path: 'products', component: ProductListComponent},
+  {path: 'products/:id', component: ProductComponent},
+  {path: 'products/photos/:id', component: ProductPhotoListComponent},
   {path: '**', component: MsgErrorComponent},
 ];
 

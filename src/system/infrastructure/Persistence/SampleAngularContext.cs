@@ -19,11 +19,21 @@ namespace SampleAngular.Infrastructure.Persistence
         public DbSet<ProductPhoto> ProductPhotos { get; set; }
         public DbSet<Product> Products { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(SampleAngularContext).Assembly);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+        #region Work with transactions (implementation of Unit of Work pattern).
+
         public async Task BeginTransactionAsync()
         {
             if (_currentTransaction != null) return;
 
-            _currentTransaction = await base.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted)
+            _currentTransaction = await base.Database
+                .BeginTransactionAsync(IsolationLevel.ReadCommitted)
                 .ConfigureAwait(false);
         }
 
@@ -32,7 +42,6 @@ namespace SampleAngular.Infrastructure.Persistence
             try
             {
                 await SaveChangesAsync().ConfigureAwait(false);
-
                 await _currentTransaction.CommitAsync();
             }
             catch
@@ -66,11 +75,6 @@ namespace SampleAngular.Infrastructure.Persistence
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(SampleAngularContext).Assembly);
-
-            base.OnModelCreating(modelBuilder);
-        }
+        #endregion
     }
 }

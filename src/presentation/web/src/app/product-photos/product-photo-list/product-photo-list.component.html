@@ -1,0 +1,34 @@
+<ng-container *ngIf="viewModel?.productPhotos?.length != 0; else loadingAlert">
+  <div class="row mt-5 mb-4 text-center">
+    <div class="col-sm-12">
+      <h2>Gallery</h2>
+    </div>
+  </div>
+
+  <app-file-upload></app-file-upload>
+
+  <div class="row">
+    <div class="card-columns">
+      <div *ngFor="let item of viewModel?.productPhotos;" class="card mb-2">
+        <div class="card-header">
+          <button (click)="onRequestDelete(item.photoId)" class="btn btn-outline-danger btn-sm">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </button>
+        </div>
+
+        <img alt="Product image" class="card-img-top" src="{{serverAddress}}/{{item.path}}">
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loadingAlert>
+  <div *ngIf="!isInitialized; else noPhotosAlert">
+    <app-alert-loading></app-alert-loading>
+  </div>
+
+  <ng-template #noPhotosAlert>
+    <app-msg-default text="This product doesn't contain <br> any photos."></app-msg-default>
+    <app-file-upload></app-file-upload>
+  </ng-template>
+</ng-template>
