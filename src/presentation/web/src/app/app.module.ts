@@ -9,22 +9,22 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {NavTopMenuComponent} from './components/common/nav/nav-top-menu/nav-top-menu.component';
-import {NavFooterComponent} from './components/common/nav/nav-footer/nav-footer.component';
-import {MsgErrorComponent} from './components/common/msg/msg-error/msg-error.component';
-import {HomeComponent} from './components/common/homes/main/home.component';
-import {MsgDefaultComponent} from './components/common/msg/msg-default/msg-default.component';
-import {MsgWelcomeCalmComponent} from './components/common/msg/msg-welcome-calm/msg-welcome-calm.component';
-import {MsgWelcomeComponent} from './components/common/msg/msg-welcome/msg-welcome.component';
-import {ManufacturerGetMasterComponent} from './components/storage/manufacturers/get/master/manufacturer-get-master.component';
-import {ProductGetMasterComponent} from './components/storage/products/get/master/product-get-master.component';
-import {ProductUpdateComponent} from './components/storage/products/update/product-update.component';
-import {ManufacturerUpdateComponent} from './components/storage/manufacturers/update/manufacturer-update.component';
-import {ProductPhotosGetComponent} from './components/storage/product-photos/get/product-photos-get.component';
-import {LoadingAlertComponent} from './components/common/modular/alerts/loading/loading-alert.component';
-import {LinkCreateComponent} from './components/common/modular/link-create/link-create.component';
-import {FileUploadComponent} from './components/common/modular/file-upload/file-upload.component';
-import {PaginationComponent} from './components/common/modular/pagination/pagination.component';
+import {NavTopMenuComponent} from './core/components/nav/nav-top-menu/nav-top-menu.component';
+import {NavFooterComponent} from './core/components/nav/nav-footer/nav-footer.component';
+import {MsgErrorComponent} from './core/components/msg/msg-error/msg-error.component';
+import {HomeComponent} from './shared/components/home/home.component';
+import {MsgDefaultComponent} from './core/components/msg/msg-default/msg-default.component';
+import {MsgWelcomeCalmComponent} from './core/components/msg/msg-welcome-calm/msg-welcome-calm.component';
+import {MsgWelcomeComponent} from './core/components/msg/msg-welcome/msg-welcome.component';
+import {ManufacturerGetMasterComponent} from './manufacturers/manufacturer-list/manufacturer-get-master.component';
+import {ProductGetMasterComponent} from './products/product-list/product-get-master.component';
+import {ProductUpdateComponent} from './products/product/product-update.component';
+import {ManufacturerUpdateComponent} from './manufacturers/manufacturer/manufacturer-update.component';
+import {ProductPhotosGetComponent} from './product-photos/product-photo-list/product-photos-get.component';
+import {LoadingAlertComponent} from './core/components/alerts/alert-loading/loading-alert.component';
+import {LinkCreateComponent} from './core/components/link-create/link-create.component';
+import {FileUploadComponent} from './core/components/file-upload/file-upload.component';
+import {PaginationComponent} from './core/components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
