@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {catchError, delay} from 'rxjs/operators';
 
-import {AbstractApiService} from '../abstract-api.service';
+import {AbstractApiService} from './generic/abstract-api.service';
 import {productPhotosEndpoint} from '../addresses.consts';
-import {ProductPhotoModel, ProductPhotosListViewModel} from '../models/api-productPhotos';
+import {ProductPhotoModel} from '../models/product-photo.model';
+import {ProductPhotosListViewModel} from '../models/product-photos-list-view.model';
 
 @Injectable()
 export class ProductPhotosService extends AbstractApiService<ProductPhotoModel, ProductPhotosListViewModel> {
@@ -13,7 +14,7 @@ export class ProductPhotosService extends AbstractApiService<ProductPhotoModel, 
     this.endpoint = productPhotosEndpoint;
   }
 
-  public getAll(id: number = 0, timeout?: number) {
+  public getAll(id = 0, timeout?: number) {
     if (id == 0) return super.getAll(timeout);
 
     return this.http.get<ProductPhotosListViewModel>(`${this.endpoint}/${id}`)

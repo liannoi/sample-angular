@@ -4,7 +4,8 @@ import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 
 import {ProductPhotosService} from '../../../../../api/services/product-photos.service';
-import {ProductPhotoModel, ProductPhotosListViewModel} from '../../../../../api/models/api-productPhotos';
+import {ProductPhotoModel} from '../../../../../api/models/product-photo.model';
+import {ProductPhotosListViewModel} from '../../../../../api/models/product-photos-list-view.model';
 
 @Component({
   selector: 'app-file-upload',
@@ -14,7 +15,7 @@ import {ProductPhotoModel, ProductPhotosListViewModel} from '../../../../../api/
 })
 export class FileUploadComponent implements OnInit, OnDestroy {
   public formData: FormData;
-  public viewModel: ProductPhotosListViewModel = <ProductPhotosListViewModel>{};
+  public viewModel = <ProductPhotosListViewModel>{};
   private stop$ = new Subject<void>();
 
   constructor(private productPhotosService: ProductPhotosService, private activatedRoute: ActivatedRoute) {
@@ -22,7 +23,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
 
   private _productId: string;
 
-  public get productId(): number {
+  public get productId() {
     return parseInt(this._productId);
   }
 

@@ -9,7 +9,8 @@ import Swal from 'sweetalert2';
 
 import {serverAddress} from '../../../../../api/addresses.consts';
 import {ProductPhotosService} from '../../../../../api/services/product-photos.service';
-import {ProductPhotoModel, ProductPhotosListViewModel} from '../../../../../api/models/api-productPhotos';
+import {ProductPhotoModel} from '../../../../../api/models/product-photo.model';
+import {ProductPhotosListViewModel} from '../../../../../api/models/product-photos-list-view.model';
 
 @Component({
   selector: 'app-product-photos-get',
@@ -17,7 +18,7 @@ import {ProductPhotoModel, ProductPhotosListViewModel} from '../../../../../api/
   providers: [ProductPhotosService],
 })
 export class ProductPhotosGetComponent implements OnDestroy {
-  public viewModel: ProductPhotosListViewModel = <ProductPhotosListViewModel>{};
+  public viewModel = <ProductPhotosListViewModel>{};
   public faTimes = faTimes;
   public isInitialized = false;
   public readonly serverAddress = serverAddress;

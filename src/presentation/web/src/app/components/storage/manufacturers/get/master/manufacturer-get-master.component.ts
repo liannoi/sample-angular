@@ -8,7 +8,7 @@ import {faPen, faTimes} from '@fortawesome/free-solid-svg-icons';
 import Swal, {SweetAlertResult} from 'sweetalert2';
 
 import {ManufacturersService} from '../../../../../../api/services/manufacturers.service';
-import {ManufacturersListViewModel} from '../../../../../../api/models/api-manufacturers';
+import {ManufacturersListViewModel} from '../../../../../../api/models/manufacturers-list-view.model';
 
 @Component({
   selector: 'app-manufacturer-get-master',
@@ -27,9 +27,7 @@ export class ManufacturerGetMasterComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit() {
-    this.manufacturersService.getAll()
-      .pipe(takeUntil(this.stop$))
-      .subscribe(result => this.viewModel = result, error => console.error(error));
+    this.refreshViewModel();
   }
 
   public ngOnDestroy() {
@@ -49,6 +47,16 @@ export class ManufacturerGetMasterComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.stop$))
         .subscribe(() => this.processDelete(id), error => console.error(error));
     });
+  }
+
+  public onPageChange(page: number) {
+    this.refreshViewModel(page);
+  }
+
+  private refreshViewModel(page = 1, limit = 10) {
+    this.manufacturersService.getAll(page, limit)
+      .pipe(takeUntil(this.stop$))
+      .subscribe(result => this.viewModel = result, error => console.error(error));
   }
 
   private askToDelete() {

@@ -5,7 +5,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import {ManufacturersService} from '../../../../../api/services/manufacturers.service';
-import {ManufacturerModel} from '../../../../../api/models/api-manufacturers';
+import {ManufacturerModel} from '../../../../../api/models/manufacturer.model';
 
 @Component({
   selector: 'app-manufacturer-update',

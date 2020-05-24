@@ -8,6 +8,8 @@ using SampleAngular.Application.Storage.Manufacturers.Commands.Delete;
 using SampleAngular.Application.Storage.Manufacturers.Commands.Update;
 using SampleAngular.Application.Storage.Manufacturers.Queries.Get;
 using SampleAngular.Application.Storage.Manufacturers.Queries.Get.AsList;
+using SampleAngular.Infrastructure.Common.Pagination;
+using SampleAngular.Infrastructure.Pagination;
 
 namespace SampleAngular.WebAPI.Controllers
 {
@@ -16,11 +18,15 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ManufacturersListViewModel>> GetAll()
+        public async Task<ActionResult<ManufacturersListViewModel>> GetAll(int page = 1, int limit = 10)
         {
             try
             {
-                return Ok(await Mediator.Send(new GetManufacturersAsListQuery()));
+                return Ok(await Mediator.Send(new GetManufacturersAsListQuery
+                {
+                    Info = new ManufacturersPagingViewModel
+                        {PagingDetails = new PagingDetails {CurrentPage = page, ItemsPerPage = limit}}
+                }));
             }
             catch (ValidationException e)
             {

@@ -8,8 +8,7 @@ import {faImage, faPen, faTimes} from '@fortawesome/free-solid-svg-icons';
 import Swal, {SweetAlertResult} from 'sweetalert2';
 
 import {ProductsService} from '../../../../../../api/services/products.service';
-import {ProductsListViewModel} from '../../../../../../api/models/api-products';
-import {ProductPhotosListViewModel} from '../../../../../../api/models/api-productPhotos';
+import {ProductsListViewModel} from '../../../../../../api/models/products-list-view.model';
 
 @Component({
   selector: 'app-product-get-master',
@@ -21,7 +20,7 @@ export class ProductGetMasterComponent implements OnInit, OnDestroy {
   public faImage = faImage;
   public faPen = faPen;
   public faTimes = faTimes;
-  public viewModel: ProductsListViewModel= <ProductsListViewModel>{};
+  public viewModel = <ProductsListViewModel>{};
   private stop$ = new Subject<void>();
 
   constructor(private titleService: Title, private productsService: ProductsService, private router: Router) {
@@ -59,7 +58,7 @@ export class ProductGetMasterComponent implements OnInit, OnDestroy {
     this.refreshViewModel(page);
   }
 
-  private refreshViewModel(page: number = 1, limit: number = 10) {
+  private refreshViewModel(page = 1, limit = 10) {
     this.productsService.getAll(page, limit)
       .pipe(takeUntil(this.stop$))
       .subscribe(result => this.viewModel = result, error => console.error(error));

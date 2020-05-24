@@ -3,8 +3,10 @@ import {HttpClient} from '@angular/common/http';
 import {throwError} from 'rxjs';
 import {catchError, delay} from 'rxjs/operators';
 
+import {ApiService} from './api.service';
+
 @Injectable()
-export abstract class AbstractApiService<TModel, TListModel> {
+export abstract class AbstractApiService<TModel, TListModel> implements ApiService<TModel, TListModel> {
   protected endpoint: string;
 
   protected constructor(protected http: HttpClient) {

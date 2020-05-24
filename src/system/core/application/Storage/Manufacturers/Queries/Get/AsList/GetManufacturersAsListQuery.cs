@@ -1,18 +1,20 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using SampleAngular.Application.Common.Interfaces;
+using SampleAngular.Application.Common.Interfaces.Pagination;
 
 namespace SampleAngular.Application.Storage.Manufacturers.Queries.Get.AsList
 {
     public class GetManufacturersAsListQuery : IRequest<ManufacturersListViewModel>
     {
-        public class
-            GetManufacturersAsListQueryHandler : IRequestHandler<GetManufacturersAsListQuery, ManufacturersListViewModel
-            >
+        public IAbstractPagingViewModel<ManufacturerLookupDto> Info { get; set; }
+
+        public class GetManufacturersAsListQueryHandler :
+            IRequestHandler<GetManufacturersAsListQuery, ManufacturersListViewModel>
         {
             private readonly ISampleAngularContext _context;
             private readonly IMapper _mapper;
@@ -26,12 +28,11 @@ namespace SampleAngular.Application.Storage.Manufacturers.Queries.Get.AsList
             public async Task<ManufacturersListViewModel> Handle(GetManufacturersAsListQuery request,
                 CancellationToken cancellationToken)
             {
+                request.Info.Collection =
+                    _context.Manufacturers.ProjectTo<ManufacturerLookupDto>(_mapper.ConfigurationProvider);
+
                 return new ManufacturersListViewModel
-                {
-                    Manufacturers = await _context.Manufacturers
-                        .ProjectTo<ManufacturerLookupDto>(_mapper.ConfigurationProvider)
-                        .ToListAsync(cancellationToken)
-                };
+                    {Pagination = request.Info.PagingDetails, Manufacturers = request.Info.EntitiesPerPage.ToList()};
             }
         }
     }

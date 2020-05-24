@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-
-import {AbstractApiService} from '../abstract-api.service';
-import {productsEndpoint} from '../addresses.consts';
-import {ProductModel, ProductsListViewModel} from '../models/api-products';
 import {catchError} from 'rxjs/operators';
+
+import {AbstractApiService} from './generic/abstract-api.service';
+import {productsEndpoint} from '../addresses.consts';
+import {ProductsListViewModel} from '../models/products-list-view.model';
+import {ProductModel} from '../models/product.model';
 
 @Injectable()
 export class ProductsService extends AbstractApiService<ProductModel, ProductsListViewModel> {
@@ -13,7 +14,7 @@ export class ProductsService extends AbstractApiService<ProductModel, ProductsLi
     this.endpoint = productsEndpoint;
   }
 
-  public getAll(page: number = 1, limit: number = 10) {
+  public getAll(page = 1, limit = 10) {
     return this.http.get<ProductsListViewModel>(`${this.endpoint}?page=${page}&limit=${limit}`)
       .pipe(catchError(this.handleError));
   }

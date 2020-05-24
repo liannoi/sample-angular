@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
-import {PaginationModel} from '../../../../../api/models/api-products';
+import {PaginationModel} from '../../../../../api/models/pagination.model';
 
 @Component({
   selector: 'app-pagination',
@@ -8,7 +8,7 @@ import {PaginationModel} from '../../../../../api/models/api-products';
 })
 export class PaginationComponent {
   @Input() public pagination: PaginationModel;
-  @Output() public outputPageChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() public outputPageChange = new EventEmitter<number>();
 
   public onPageChange(page: number) {
     this.outputPageChange.emit(page);

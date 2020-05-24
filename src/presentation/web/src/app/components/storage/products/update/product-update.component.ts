@@ -6,8 +6,9 @@ import {Subject} from 'rxjs';
 import {ProductsService} from '../../../../../api/services/products.service';
 import {ManufacturersService} from '../../../../../api/services/manufacturers.service';
 import {takeUntil} from 'rxjs/operators';
-import {ProductModel} from '../../../../../api/models/api-products';
-import {ManufacturerModel, ManufacturersListViewModel} from '../../../../../api/models/api-manufacturers';
+import {ManufacturerModel} from '../../../../../api/models/manufacturer.model';
+import {ManufacturersListViewModel} from '../../../../../api/models/manufacturers-list-view.model';
+import {ProductModel} from '../../../../../api/models/product.model';
 
 @Component({
   selector: 'app-product-update',

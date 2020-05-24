@@ -7,7 +7,7 @@
 
   <app-link-create (click)="onRedirectToUpdate()" [title]="'Create'"></app-link-create>
 
-  <div class="row">
+  <div class="row mb-4">
     <div class="offset-sm-3"></div>
     <div class="col-sm-6">
       <table class="table border table-striped table-sm">
@@ -39,6 +39,12 @@
       </table>
     </div>
     <div class="offset-sm-3"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <app-pagination (outputPageChange)="onPageChange($event)" [pagination]="viewModel.pagination"></app-pagination>
+    </div>
   </div>
 </div>
 
