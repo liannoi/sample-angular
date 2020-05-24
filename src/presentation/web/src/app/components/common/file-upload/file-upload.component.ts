@@ -10,6 +10,7 @@ import {ProductPhotosListModel} from '../../../../api/models/product-photos-list
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
+  styleUrls: ['./file-upload.component.css'],
   providers: [ProductPhotosService],
 })
 export class FileUploadComponent implements OnInit, OnDestroy {
@@ -29,10 +30,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.activatedRoute.params.forEach((params: Params) => {
       this._productId = params['id'];
-
-      this.productPhotosService.getAll(this.productId)
-        .pipe(takeUntil(this.stop$))
-        .subscribe((result: ProductPhotosListModel) => this.viewModel.productPhotos = result.productPhotos, error => console.error(error));
+      this.initializeProductPhotos();
     });
   }
 
@@ -42,22 +40,30 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   }
 
   public onFileChanged = (files) => {
-    if (files.length === 0) {
-      return;
-    }
+    if (files.length === 0) return;
 
-    let fileToUpload = <File>files[0];
-    this.formData = new FormData();
-    this.formData.append('file', fileToUpload, fileToUpload.name);
+    this.prepareFormData(files);
   };
 
   public onRequestUpload() {
-    this.productPhotosService.createProductPhoto(this.formData)
+    this.productPhotosService.upload(this.productId, this.formData)
       .pipe(takeUntil(this.stop$))
       .subscribe((result: ProductPhotoModel) => window.location.reload(), error => console.error(error));
   }
 
   public uploadMessage() {
-    return !this.formData ? 'Choose file...' : 'Ready!';
+    return !this.formData ? 'Choose file...' : 'Ready to upload';
+  }
+
+  private initializeProductPhotos() {
+    this.productPhotosService.getAll(this.productId)
+      .pipe(takeUntil(this.stop$))
+      .subscribe((result: ProductPhotosListModel) => this.viewModel.productPhotos = result.productPhotos, error => console.error(error));
+  }
+
+  private prepareFormData(files) {
+    let fileToUpload = <File>files[0];
+    this.formData = new FormData();
+    this.formData.append('file', fileToUpload, fileToUpload.name);
   }
 }

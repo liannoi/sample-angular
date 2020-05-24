@@ -8,7 +8,7 @@
         <label class="custom-file-label" for="product_photo">{{uploadMessage()}}</label>
       </div>
 
-      <div class="input-group-append">
+      <div [class.cursor-not-allowed]="!formData" class="input-group-append">
         <a (click)="onRequestUpload()" [class.disabled]="!formData" class="input-group-text btn">Upload</a>
       </div>
     </div>

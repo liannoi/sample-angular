@@ -14,7 +14,7 @@ export class ProductPhotosService extends AbstractApiService<ProductPhotoModel, 
     this.endpoint = productPhotosEndpoint;
   }
 
-  public getAll(id = 0, timeout?: number) {
+  public getAll(id: number = 0, timeout?: number) {
     if (id == 0) return super.getAll(timeout);
 
     return this.http.get<ProductPhotosListModel>(`${this.endpoint}/${id}`)
@@ -22,8 +22,8 @@ export class ProductPhotosService extends AbstractApiService<ProductPhotoModel, 
       .pipe(delay(timeout > 0 ? timeout : 0));
   }
 
-  public createProductPhoto(formData: FormData) {
-    return this.http.post<ProductPhotoModel>(`${this.endpoint}`, formData)
+  public upload(id: number, formData: FormData) {
+    return this.http.post<ProductPhotoModel>(`${this.endpoint}/${id}`, formData)
       .pipe(catchError(this.handleError));
   }
 }

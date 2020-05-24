@@ -3,14 +3,17 @@ using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SampleAngular.Application;
 using SampleAngular.Infrastructure;
 using SampleAngular.Infrastructure.Persistence;
+using SampleAngular.WebAPI.Infrastructure;
 
 namespace SampleAngular.WebAPI
 {
@@ -28,6 +31,7 @@ namespace SampleAngular.WebAPI
         {
             services.AddApplication();
             services.AddInfrastructure(Configuration);
+            services.AddTransient<IImageSaver, ImageSaver>();
 
             services.AddHealthChecks().AddDbContextCheck<SampleAngularContext>();
 
@@ -75,6 +79,12 @@ namespace SampleAngular.WebAPI
                 .WithOrigins("http://localhost:4200")
                 .AllowAnyMethod()
                 .AllowAnyHeader());
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(ApiDefaults.PhotosDirectoryRoot),
+                RequestPath = new PathString(ApiDefaults.PhotosDirectoryRootRequestPath)
+            });
 
             app.UseRouting();
             app.UseEndpoints(endpoints => endpoints.MapControllerRoute(

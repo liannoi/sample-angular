@@ -6,6 +6,7 @@ import {takeUntil} from 'rxjs/operators';
 
 import {faTimes} from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import {serverAddress} from '../../../../../api/addresses.consts';
 
 import {ProductPhotoModel} from '../../../../../api/models/product-photo.model';
 import {ProductPhotosService} from '../../../../../api/services/product-photos.service';
@@ -20,6 +21,7 @@ export class ProductPhotosGetComponent implements OnDestroy {
   public viewModel = new ProductPhotosListModel();
   public faTimes = faTimes;
   public isInitialized = false;
+  public readonly serverAddress = serverAddress;
   private stop$ = new Subject<void>();
 
   constructor(private productPhotosService: ProductPhotosService, private activatedRoute: ActivatedRoute, titleService: Title) {
@@ -63,7 +65,7 @@ export class ProductPhotosGetComponent implements OnDestroy {
       icon: 'success',
       title: 'Photo successfully deleted',
       showConfirmButton: false,
-      timer: 2400,
+      timer: 1800,
     });
   }
 }
