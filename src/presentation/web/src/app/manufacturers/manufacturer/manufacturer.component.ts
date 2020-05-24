@@ -8,11 +8,11 @@ import {ManufacturersService} from '../shared/manufacturers.service';
 import {ManufacturerModel} from '../shared/manufacturer.model';
 
 @Component({
-  selector: 'app-manufacturer-update',
-  templateUrl: './manufacturer-update.component.html',
+  selector: 'app-manufacturer',
+  templateUrl: './manufacturer.component.html',
   providers: [ManufacturersService],
 })
-export class ManufacturerUpdateComponent implements OnInit, OnDestroy {
+export class ManufacturerComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public model: ManufacturerModel;
   public isInitialized = false;

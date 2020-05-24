@@ -11,11 +11,11 @@ import {ManufacturersListViewModel} from '../../manufacturers/shared/manufacture
 import {ProductModel} from '../shared/product.model';
 
 @Component({
-  selector: 'app-product-update',
-  templateUrl: './product-update.component.html',
+  selector: 'app-product',
+  templateUrl: './product.component.html',
   providers: [ProductsService, ManufacturersService],
 })
-export class ProductUpdateComponent implements OnInit, OnDestroy {
+export class ProductComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public model: ProductModel;
   public isInitialized = false;
@@ -35,7 +35,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
       }),
     });
 
-    this.manufacturerService.getAll()
+    this.manufacturerService.getAll(1, 200)
       .pipe(takeUntil(this.stop$))
       .subscribe((result: ManufacturersListViewModel) => this.manufacturers = result.manufacturers, error => console.log(error));
 

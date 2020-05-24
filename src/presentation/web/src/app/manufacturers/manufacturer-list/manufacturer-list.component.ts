@@ -11,12 +11,12 @@ import {ManufacturersService} from '../shared/manufacturers.service';
 import {ManufacturersListViewModel} from '../shared/manufacturers-list-view.model';
 
 @Component({
-  selector: 'app-manufacturer-get-master',
-  templateUrl: './manufacturer-get-master.component.html',
-  styleUrls: ['./manufacturer-get-master.component.css'],
+  selector: 'app-manufacturer-list',
+  templateUrl: './manufacturer-list.component.html',
+  styleUrls: ['./manufacturer-list.component.css'],
   providers: [ManufacturersService],
 })
-export class ManufacturerGetMasterComponent implements OnInit, OnDestroy {
+export class ManufacturerListComponent implements OnInit, OnDestroy {
   public faPen = faPen;
   public faTimes = faTimes;
   public viewModel: ManufacturersListViewModel;
@@ -36,7 +36,7 @@ export class ManufacturerGetMasterComponent implements OnInit, OnDestroy {
   }
 
   public onRedirectToUpdate(id = 0) {
-    this.router.navigate(['/manufacturers/manufacturer', id]);
+    this.router.navigate(['/manufacturers', id]);
   }
 
   public onRequestDelete(id: number) {

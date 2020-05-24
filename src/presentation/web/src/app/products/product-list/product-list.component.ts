@@ -11,12 +11,12 @@ import {ProductsService} from '../shared/products.service';
 import {ProductsListViewModel} from '../shared/products-list-view.model';
 
 @Component({
-  selector: 'app-product-get-master',
-  templateUrl: './product-get-master.component.html',
-  styleUrls: ['./product-get-master.component.css'],
+  selector: 'app-product-list',
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.css'],
   providers: [ProductsService],
 })
-export class ProductGetMasterComponent implements OnInit, OnDestroy {
+export class ProductListComponent implements OnInit, OnDestroy {
   public faImage = faImage;
   public faPen = faPen;
   public faTimes = faTimes;
@@ -37,7 +37,7 @@ export class ProductGetMasterComponent implements OnInit, OnDestroy {
   }
 
   public onRedirectToUpdate(id = 0) {
-    this.router.navigate(['/products/manufacturer', id]);
+    this.router.navigate(['/products', id]);
   }
 
   public onRedirectToPhotos(id: number) {

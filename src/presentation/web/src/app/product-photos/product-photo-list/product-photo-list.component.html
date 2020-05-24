@@ -24,7 +24,7 @@
 
 <ng-template #loadingAlert>
   <div *ngIf="!isInitialized; else noPhotosAlert">
-    <app-loading-alert></app-loading-alert>
+    <app-alert-loading></app-alert-loading>
   </div>
 
   <ng-template #noPhotosAlert>

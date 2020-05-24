@@ -13,11 +13,11 @@ import {ProductPhotoModel} from '../shared/product-photo.model';
 import {ProductPhotosListViewModel} from '../shared/product-photos-list-view.model';
 
 @Component({
-  selector: 'app-product-photos-get',
-  templateUrl: './product-photos-get.component.html',
+  selector: 'app-product-photo-list',
+  templateUrl: './product-photo-list.component.html',
   providers: [ProductPhotosService],
 })
-export class ProductPhotosGetComponent implements OnDestroy {
+export class ProductPhotoListComponent implements OnDestroy {
   public viewModel = <ProductPhotosListViewModel>{};
   public faTimes = faTimes;
   public isInitialized = false;
