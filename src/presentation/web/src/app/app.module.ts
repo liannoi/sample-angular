@@ -20,11 +20,11 @@ import {ManufacturerGetMasterComponent} from './components/storage/manufacturers
 import {ProductGetMasterComponent} from './components/storage/products/get/master/product-get-master.component';
 import {ProductUpdateComponent} from './components/storage/products/update/product-update.component';
 import {ManufacturerUpdateComponent} from './components/storage/manufacturers/update/manufacturer-update.component';
-import {ProductsFilterComponent} from './components/storage/products-filter/products-filter.component';
 import {ProductPhotosGetComponent} from './components/storage/product-photos/get/product-photos-get.component';
-import {LoadingAlertComponent} from './components/common/alerts/loading/loading-alert.component';
-import {LinkCreateComponent} from './components/common/link-create/link-create.component';
-import {FileUploadComponent} from './components/common/file-upload/file-upload.component';
+import {LoadingAlertComponent} from './components/common/modular/alerts/loading/loading-alert.component';
+import {LinkCreateComponent} from './components/common/modular/link-create/link-create.component';
+import {FileUploadComponent} from './components/common/modular/file-upload/file-upload.component';
+import {PaginationComponent} from './components/common/modular/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -40,11 +40,11 @@ import {FileUploadComponent} from './components/common/file-upload/file-upload.c
     ProductGetMasterComponent,
     ProductUpdateComponent,
     ManufacturerUpdateComponent,
-    ProductsFilterComponent,
     ProductPhotosGetComponent,
     LoadingAlertComponent,
     LinkCreateComponent,
     FileUploadComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,

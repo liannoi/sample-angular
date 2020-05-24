@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace SampleAngular.WebAPI.Infrastructure
 {
-    public class ImageSaver : IImageSaver
+    public class ApiImageSaver : IApiImageSaver
     {
         public async Task SaveImageAsync(string filePath, IFormFile image)
         {

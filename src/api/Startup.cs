@@ -31,7 +31,7 @@ namespace SampleAngular.WebAPI
         {
             services.AddApplication();
             services.AddInfrastructure(Configuration);
-            services.AddTransient<IImageSaver, ImageSaver>();
+            services.AddTransient<IApiImageSaver, ApiImageSaver>();
 
             services.AddHealthChecks().AddDbContextCheck<SampleAngularContext>();
 

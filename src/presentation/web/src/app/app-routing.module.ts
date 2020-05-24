@@ -7,17 +7,15 @@ import {ManufacturerGetMasterComponent} from './components/storage/manufacturers
 import {ProductGetMasterComponent} from './components/storage/products/get/master/product-get-master.component';
 import {ProductUpdateComponent} from './components/storage/products/update/product-update.component';
 import {ManufacturerUpdateComponent} from './components/storage/manufacturers/update/manufacturer-update.component';
-import {ProductsFilterComponent} from './components/storage/products-filter/products-filter.component';
 import {ProductPhotosGetComponent} from './components/storage/product-photos/get/product-photos-get.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'manufacturers', component: ManufacturerGetMasterComponent},
-  {path: 'manufacturer/update/:id', component: ManufacturerUpdateComponent},
+  {path: 'manufacturers/update/:id', component: ManufacturerUpdateComponent},
   {path: 'products', component: ProductGetMasterComponent},
-  {path: 'product/update/:id', component: ProductUpdateComponent},
-  {path: 'products/filter', component: ProductsFilterComponent},
-  {path: 'product/photos/:id', component: ProductPhotosGetComponent},
+  {path: 'products/update/:id', component: ProductUpdateComponent},
+  {path: 'products/photos/:id', component: ProductPhotosGetComponent},
   {path: '**', component: MsgErrorComponent},
 ];
 

@@ -5,10 +5,9 @@ import {Subject} from 'rxjs';
 
 import {ProductsService} from '../../../../../api/services/products.service';
 import {ManufacturersService} from '../../../../../api/services/manufacturers.service';
-import {ProductModel} from '../../../../../api/models/product.model';
-import {ManufacturerModel} from '../../../../../api/models/manufacturer.model';
 import {takeUntil} from 'rxjs/operators';
-import {ManufacturersListModel} from '../../../../../api/models/manufacturers-list.model';
+import {ProductModel} from '../../../../../api/models/api-products';
+import {ManufacturerModel, ManufacturersListViewModel} from '../../../../../api/models/api-manufacturers';
 
 @Component({
   selector: 'app-product-update',
@@ -37,7 +36,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
 
     this.manufacturerService.getAll()
       .pipe(takeUntil(this.stop$))
-      .subscribe((result: ManufacturersListModel) => this.manufacturers = result.manufacturers, error => console.log(error));
+      .subscribe((result: ManufacturersListViewModel) => this.manufacturers = result.manufacturers, error => console.log(error));
 
     this.activatedRoute.params.forEach((params: Params) => {
       let id = params['id'];
@@ -90,7 +89,12 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
     return this.router.navigate(['/products']);
   }
 
-  private initializeInputs(model = new ProductModel()) {
+  private initializeInputs(model: ProductModel = {
+    productId: 0,
+    name: '',
+    productNumber: '',
+    manufacturer: {manufacturerId: 0, name: ''},
+  }) {
     this.model = model;
     this.form.patchValue(this.model);
     this.isInitialized = true;

@@ -6,9 +6,10 @@ using SampleAngular.Application.Storage.Products;
 using SampleAngular.Application.Storage.Products.Commands.Create;
 using SampleAngular.Application.Storage.Products.Commands.Delete;
 using SampleAngular.Application.Storage.Products.Commands.Update;
-using SampleAngular.Application.Storage.Products.Models;
 using SampleAngular.Application.Storage.Products.Queries.Get;
 using SampleAngular.Application.Storage.Products.Queries.Get.AsList;
+using SampleAngular.Infrastructure.Common.Pagination;
+using SampleAngular.Infrastructure.Pagination;
 
 namespace SampleAngular.WebAPI.Controllers
 {
@@ -17,11 +18,15 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductsListViewModel>> GetAll()
+        public async Task<ActionResult<ProductsListViewModel>> GetAll(int page = 1, int limit = 10)
         {
             try
             {
-                return Ok(await Mediator.Send(new GetProductsAsListQuery()));
+                return Ok(await Mediator.Send(new GetProductsAsListQuery
+                {
+                    Info = new ProductsPagingViewModel
+                        {PagingDetails = new PagingDetails {CurrentPage = page, ItemsPerPage = limit}}
+                }));
             }
             catch (ValidationException e)
             {

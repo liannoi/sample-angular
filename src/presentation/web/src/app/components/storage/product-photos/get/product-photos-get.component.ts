@@ -6,11 +6,10 @@ import {takeUntil} from 'rxjs/operators';
 
 import {faTimes} from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
-import {serverAddress} from '../../../../../api/addresses.consts';
 
-import {ProductPhotoModel} from '../../../../../api/models/product-photo.model';
+import {serverAddress} from '../../../../../api/addresses.consts';
 import {ProductPhotosService} from '../../../../../api/services/product-photos.service';
-import {ProductPhotosListModel} from '../../../../../api/models/product-photos-list.model';
+import {ProductPhotoModel, ProductPhotosListViewModel} from '../../../../../api/models/api-productPhotos';
 
 @Component({
   selector: 'app-product-photos-get',
@@ -18,7 +17,7 @@ import {ProductPhotosListModel} from '../../../../../api/models/product-photos-l
   providers: [ProductPhotosService],
 })
 export class ProductPhotosGetComponent implements OnDestroy {
-  public viewModel = new ProductPhotosListModel();
+  public viewModel: ProductPhotosListViewModel = <ProductPhotosListViewModel>{};
   public faTimes = faTimes;
   public isInitialized = false;
   public readonly serverAddress = serverAddress;
@@ -32,7 +31,7 @@ export class ProductPhotosGetComponent implements OnDestroy {
     this.activatedRoute.params.forEach((params: Params) =>
       this.productPhotosService.getAll(params['id'])
         .pipe(takeUntil(this.stop$))
-        .subscribe((result: ProductPhotosListModel) => this.processInitialize(result), error => console.error(error)));
+        .subscribe((result: ProductPhotosListViewModel) => this.processInitialize(result), error => console.error(error)));
   }
 
   public ngOnDestroy() {
@@ -46,7 +45,7 @@ export class ProductPhotosGetComponent implements OnDestroy {
       .subscribe((result: ProductPhotoModel) => this.processDelete(result.photoId), error => console.error(error));
   }
 
-  private processInitialize(result: ProductPhotosListModel) {
+  private processInitialize(result: ProductPhotosListViewModel) {
     this.viewModel.productPhotos = result.productPhotos;
     this.isInitialized = true;
   }

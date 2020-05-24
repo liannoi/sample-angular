@@ -8,7 +8,7 @@ import {faPen, faTimes} from '@fortawesome/free-solid-svg-icons';
 import Swal, {SweetAlertResult} from 'sweetalert2';
 
 import {ManufacturersService} from '../../../../../../api/services/manufacturers.service';
-import {ManufacturersListModel} from '../../../../../../api/models/manufacturers-list.model';
+import {ManufacturersListViewModel} from '../../../../../../api/models/api-manufacturers';
 
 @Component({
   selector: 'app-manufacturer-get-master',
@@ -19,7 +19,7 @@ import {ManufacturersListModel} from '../../../../../../api/models/manufacturers
 export class ManufacturerGetMasterComponent implements OnInit, OnDestroy {
   public faPen = faPen;
   public faTimes = faTimes;
-  public viewModel = new ManufacturersListModel();
+  public viewModel: ManufacturersListViewModel;
   private stop$ = new Subject<void>();
 
   constructor(private titleService: Title, private manufacturersService: ManufacturersService, private router: Router) {
@@ -38,7 +38,7 @@ export class ManufacturerGetMasterComponent implements OnInit, OnDestroy {
   }
 
   public onRedirectToUpdate(id = 0) {
-    this.router.navigate(['/manufacturer/update', id]);
+    this.router.navigate(['/manufacturers/update', id]);
   }
 
   public onRequestDelete(id: number) {

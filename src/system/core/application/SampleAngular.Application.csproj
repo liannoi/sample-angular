@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <Folder Include="Common\Exceptions" />
+      <Folder Include="Storage\Products\Models" />
     </ItemGroup>
 
     <ItemGroup>

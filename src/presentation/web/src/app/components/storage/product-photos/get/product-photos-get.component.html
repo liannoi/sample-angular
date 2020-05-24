@@ -1,4 +1,4 @@
-<ng-container *ngIf="viewModel.productPhotos.length != 0; else loadingAlert">
+<ng-container *ngIf="viewModel?.productPhotos?.length != 0; else loadingAlert">
   <div class="row mt-5 mb-4 text-center">
     <div class="col-sm-12">
       <h2>Gallery</h2>
@@ -9,7 +9,7 @@
 
   <div class="row">
     <div class="card-columns">
-      <div *ngFor="let item of viewModel.productPhotos;" class="card mb-2">
+      <div *ngFor="let item of viewModel?.productPhotos;" class="card mb-2">
         <div class="card-header">
           <button (click)="onRequestDelete(item.photoId)" class="btn btn-outline-danger btn-sm">
             <fa-icon [icon]="faTimes"></fa-icon>

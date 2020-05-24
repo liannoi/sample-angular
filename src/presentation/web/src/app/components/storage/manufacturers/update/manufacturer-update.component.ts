@@ -5,7 +5,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import {ManufacturersService} from '../../../../../api/services/manufacturers.service';
-import {ManufacturerModel} from '../../../../../api/models/manufacturer.model';
+import {ManufacturerModel} from '../../../../../api/models/api-manufacturers';
 
 @Component({
   selector: 'app-manufacturer-update',
@@ -70,7 +70,7 @@ export class ManufacturerUpdateComponent implements OnInit, OnDestroy {
     return this.router.navigate(['/manufacturers']);
   }
 
-  private initializeInputs(model = new ManufacturerModel()) {
+  private initializeInputs(model: ManufacturerModel = {name: '', manufacturerId: 0}) {
     this.model = model;
     this.form.patchValue(this.model);
     this.isInitialized = true;

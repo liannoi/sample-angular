@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SampleAngular.Application.Common.Interfaces;
+using SampleAngular.Application.Common.Interfaces.Pagination;
+using SampleAngular.Infrastructure.Common.Pagination;
 using SampleAngular.Infrastructure.Persistence;
 
 namespace SampleAngular.Infrastructure
@@ -15,6 +17,8 @@ namespace SampleAngular.Infrastructure
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<ISampleAngularContext>(provider => provider.GetService<SampleAngularContext>());
+
+            services.AddTransient<IPagingDetails, PagingDetails>();
 
             return services;
         }

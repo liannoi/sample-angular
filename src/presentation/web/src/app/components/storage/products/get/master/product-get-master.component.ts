@@ -8,7 +8,8 @@ import {faImage, faPen, faTimes} from '@fortawesome/free-solid-svg-icons';
 import Swal, {SweetAlertResult} from 'sweetalert2';
 
 import {ProductsService} from '../../../../../../api/services/products.service';
-import {ProductsListModel} from '../../../../../../api/models/products-list.model';
+import {ProductsListViewModel} from '../../../../../../api/models/api-products';
+import {ProductPhotosListViewModel} from '../../../../../../api/models/api-productPhotos';
 
 @Component({
   selector: 'app-product-get-master',
@@ -20,7 +21,7 @@ export class ProductGetMasterComponent implements OnInit, OnDestroy {
   public faImage = faImage;
   public faPen = faPen;
   public faTimes = faTimes;
-  public viewModel = new ProductsListModel();
+  public viewModel: ProductsListViewModel= <ProductsListViewModel>{};
   private stop$ = new Subject<void>();
 
   constructor(private titleService: Title, private productsService: ProductsService, private router: Router) {
@@ -28,9 +29,7 @@ export class ProductGetMasterComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit() {
-    this.productsService.getAll()
-      .pipe(takeUntil(this.stop$))
-      .subscribe(result => this.viewModel = result, error => console.error(error));
+    this.refreshViewModel();
   }
 
   public ngOnDestroy() {
@@ -39,11 +38,11 @@ export class ProductGetMasterComponent implements OnInit, OnDestroy {
   }
 
   public onRedirectToUpdate(id = 0) {
-    this.router.navigate(['/product/update', id]);
+    this.router.navigate(['/products/update', id]);
   }
 
   public onRedirectToPhotos(id: number) {
-    this.router.navigate(['/product/photos', id]);
+    this.router.navigate(['/products/photos', id]);
   }
 
   public onRequestDelete(id: number) {
@@ -54,6 +53,16 @@ export class ProductGetMasterComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.stop$))
         .subscribe(() => this.processDelete(id), error => console.error(error));
     });
+  }
+
+  public onPageChange(page: number) {
+    this.refreshViewModel(page);
+  }
+
+  private refreshViewModel(page: number = 1, limit: number = 10) {
+    this.productsService.getAll(page, limit)
+      .pipe(takeUntil(this.stop$))
+      .subscribe(result => this.viewModel = result, error => console.error(error));
   }
 
   private processDelete(id: number) {

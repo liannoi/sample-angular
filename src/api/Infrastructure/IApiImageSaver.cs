@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace SampleAngular.WebAPI.Infrastructure
 {
-    public interface IImageSaver
+    public interface IApiImageSaver
     {
         string GenerateUniqueFileName(IFormFile file);
         Task SaveImageAsync(string fileName, IFormFile image);

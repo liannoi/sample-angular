@@ -1,4 +1,4 @@
-<ng-container *ngIf="viewModel.products.length != 0; else loadingAlert">
+<ng-container *ngIf="viewModel?.products?.length != 0; else loadingAlert">
   <div class="row mt-5 mb-4 text-center">
     <div class="col-sm-12">
       <h2>Products</h2>
@@ -7,7 +7,7 @@
 
   <app-link-create (click)="onRedirectToUpdate()" [title]="'Create'"></app-link-create>
 
-  <div class="row">
+  <div class="row mb-4">
     <div class="offset-sm-2"></div>
     <div class="col-sm-8">
       <table class="table border table-striped table-sm">
@@ -45,6 +45,12 @@
       </table>
     </div>
     <div class="offset-sm-2"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <app-pagination [pagination]="viewModel.pagination" (outputPageChange)="onPageChange($event)"></app-pagination>
+    </div>
   </div>
 </ng-container>
 

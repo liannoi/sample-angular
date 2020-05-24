@@ -16,11 +16,11 @@ namespace SampleAngular.WebAPI.Controllers
 {
     public class ProductPhotosController : BaseController
     {
-        private readonly IImageSaver _imageSaver;
+        private readonly IApiImageSaver _apiImageSaver;
 
-        public ProductPhotosController(IImageSaver imageSaver)
+        public ProductPhotosController(IApiImageSaver apiImageSaver)
         {
-            _imageSaver = imageSaver;
+            _apiImageSaver = apiImageSaver;
         }
 
         /// <summary>
@@ -70,13 +70,13 @@ namespace SampleAngular.WebAPI.Controllers
             try
             {
                 var file = Request.Form.Files.FirstOrDefault() ?? throw new ArgumentException();
-                var uniqueFileName = _imageSaver.GenerateUniqueFileName(file);
-                await _imageSaver.SaveImageAsync(GeneratePath(uniqueFileName), file);
+                var uniqueFileName = _apiImageSaver.GenerateUniqueFileName(file);
+                await _apiImageSaver.SaveImageAsync(GeneratePath(uniqueFileName), file);
 
                 return Ok(await Mediator.Send(new CreateProductPhotoCommand
                 {
                     ProductId = id,
-                    Path = _imageSaver.GenerateDatabasePath(ApiDefaults.ProductPhotosPath, uniqueFileName)
+                    Path = _apiImageSaver.GenerateDatabasePath(ApiDefaults.ProductPhotosPath, uniqueFileName)
                 }));
             }
             catch (ValidationException e)

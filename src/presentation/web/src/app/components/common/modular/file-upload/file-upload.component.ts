@@ -3,9 +3,8 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 
-import {ProductPhotoModel} from '../../../../api/models/product-photo.model';
-import {ProductPhotosService} from '../../../../api/services/product-photos.service';
-import {ProductPhotosListModel} from '../../../../api/models/product-photos-list.model';
+import {ProductPhotosService} from '../../../../../api/services/product-photos.service';
+import {ProductPhotoModel, ProductPhotosListViewModel} from '../../../../../api/models/api-productPhotos';
 
 @Component({
   selector: 'app-file-upload',
@@ -15,7 +14,7 @@ import {ProductPhotosListModel} from '../../../../api/models/product-photos-list
 })
 export class FileUploadComponent implements OnInit, OnDestroy {
   public formData: FormData;
-  public viewModel = new ProductPhotosListModel();
+  public viewModel: ProductPhotosListViewModel = <ProductPhotosListViewModel>{};
   private stop$ = new Subject<void>();
 
   constructor(private productPhotosService: ProductPhotosService, private activatedRoute: ActivatedRoute) {
@@ -58,7 +57,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   private initializeProductPhotos() {
     this.productPhotosService.getAll(this.productId)
       .pipe(takeUntil(this.stop$))
-      .subscribe((result: ProductPhotosListModel) => this.viewModel.productPhotos = result.productPhotos, error => console.error(error));
+      .subscribe((result: ProductPhotosListViewModel) => this.viewModel.productPhotos = result.productPhotos, error => console.error(error));
   }
 
   private prepareFormData(files) {
