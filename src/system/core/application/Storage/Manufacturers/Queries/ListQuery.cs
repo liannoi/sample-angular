@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
-using SampleAngular.Application.Common;
+using SampleAngular.Application.Common.Interfaces;
 using SampleAngular.Application.Common.Pagings;
 using SampleAngular.Application.Storage.Manufacturers.Models;
 

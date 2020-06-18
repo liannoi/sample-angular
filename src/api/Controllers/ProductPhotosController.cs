@@ -5,20 +5,22 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SampleAngular.Application.Storage.Products.Photos.Commands;
+using SampleAngular.Application.Common.Interfaces;
+using SampleAngular.Application.Storage.Products.Photos.Commands.Create;
+using SampleAngular.Application.Storage.Products.Photos.Commands.Delete;
 using SampleAngular.Application.Storage.Products.Photos.Models;
 using SampleAngular.Application.Storage.Products.Photos.Queries;
-using SampleAngular.WebAPI.Infrastructure;
 
 namespace SampleAngular.WebAPI.Controllers
 {
+    // TODO: Pull the logic from the controller into the appropriate classes.
     public class ProductPhotosController : BaseController
     {
-        private readonly IWebImageSaver _webImageSaver;
+        private readonly IApiImageSaver _apiImageSaver;
 
-        public ProductPhotosController(IWebImageSaver webImageSaver)
+        public ProductPhotosController(IApiImageSaver apiImageSaver)
         {
-            _webImageSaver = webImageSaver;
+            _apiImageSaver = apiImageSaver;
         }
 
         /// <summary>
@@ -68,13 +70,13 @@ namespace SampleAngular.WebAPI.Controllers
             try
             {
                 var file = Request.Form.Files.FirstOrDefault() ?? throw new ArgumentException();
-                var uniqueFileName = _webImageSaver.Unique(file);
-                await _webImageSaver.SaveAsync(GeneratePath(uniqueFileName), file);
+                var uniqueFileName = _apiImageSaver.Unique(file);
+                await _apiImageSaver.SaveAsync(GeneratePath(uniqueFileName), file);
 
                 return Ok(await Mediator.Send(new CreateCommand
                 {
                     ProductId = id,
-                    Path = _webImageSaver.Path(ApiDefaults.ProductPhotosPath, uniqueFileName)
+                    Path = _apiImageSaver.Path(ApiDefaults.ProductPhotosPath, uniqueFileName)
                 }));
             }
             catch (ValidationException e)

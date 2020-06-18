@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SampleAngular.Application.Common;
+using SampleAngular.Application.Common.Interfaces;
 
-namespace SampleAngular.Application.Storage.Manufacturers.Commands
+namespace SampleAngular.Application.Storage.Manufacturers.Commands.Update
 {
     public class UpdateCommand : IRequest
     {
@@ -17,11 +17,13 @@ namespace SampleAngular.Application.Storage.Manufacturers.Commands
         {
             private readonly ISampleAngularContext _context;
             private readonly IMapper _mapper;
+            private readonly IMediator _mediator;
 
-            public Handler(ISampleAngularContext context, IMapper mapper)
+            public Handler(ISampleAngularContext context, IMapper mapper, IMediator mediator)
             {
                 _context = context;
                 _mapper = mapper;
+                _mediator = mediator;
             }
 
             public async Task<Unit> Handle(UpdateCommand request,
@@ -34,8 +36,10 @@ namespace SampleAngular.Application.Storage.Manufacturers.Commands
                 fined.Name = request.Name;
                 await _context.SaveChangesAsync(cancellationToken);
 
+                await _mediator.Publish(new ManufacturerUpdated {ManufacturerId = fined.ManufacturerId},
+                    cancellationToken);
+
                 return Unit.Value;
-                // return _mapper.Map<ManufacturerLookupDto>(fined);
             }
         }
     }

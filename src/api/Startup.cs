@@ -11,9 +11,10 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SampleAngular.Application;
+using SampleAngular.Application.Common.Interfaces;
 using SampleAngular.Infrastructure;
+using SampleAngular.Infrastructure.Common;
 using SampleAngular.Infrastructure.Persistence;
-using SampleAngular.WebAPI.Infrastructure;
 
 namespace SampleAngular.WebAPI
 {
@@ -31,11 +32,12 @@ namespace SampleAngular.WebAPI
         {
             services.AddApplication();
             services.AddInfrastructure(Configuration);
-            services.AddTransient<IWebImageSaver, WebImageSaver>();
+            services.AddTransient<IApiImageSaver, ApiImageSaver>();
 
             services.AddHealthChecks().AddDbContextCheck<SampleAngularContext>();
 
             services.AddCors();
+            services.AddSignalR();
             services.AddControllers();
 
             services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
@@ -78,7 +80,8 @@ namespace SampleAngular.WebAPI
             app.UseCors(options => options
                 .WithOrigins("http://localhost:4200")
                 .AllowAnyMethod()
-                .AllowAnyHeader());
+                .AllowAnyHeader()
+                .AllowCredentials());
 
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -87,9 +90,11 @@ namespace SampleAngular.WebAPI
             });
 
             app.UseRouting();
-            app.UseEndpoints(endpoints => endpoints.MapControllerRoute(
-                "default",
-                "{controller=Products}/{action=GetAll}/{id?}"));
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute("default", "{controller=Products}/{action=GetAll}/{id?}");
+                endpoints.MapHub<NotificationService>("/notifications");
+            });
         }
     }
 }

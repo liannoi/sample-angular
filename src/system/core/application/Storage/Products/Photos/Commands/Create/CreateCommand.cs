@@ -2,15 +2,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using SampleAngular.Application.Common;
+using SampleAngular.Application.Common.Interfaces;
 using SampleAngular.Domain.Entities;
 
-namespace SampleAngular.Application.Storage.Manufacturers.Commands
+namespace SampleAngular.Application.Storage.Products.Photos.Commands.Create
 {
     public class CreateCommand : IRequest
     {
-        public int ManufacturerId { get; set; }
-        public string Name { get; set; }
+        public int PhotoId { get; set; }
+        public int ProductId { get; set; }
+        public string Path { get; set; }
 
         private class Handler : IRequestHandler<CreateCommand>
         {
@@ -26,13 +27,13 @@ namespace SampleAngular.Application.Storage.Manufacturers.Commands
             public async Task<Unit> Handle(CreateCommand request,
                 CancellationToken cancellationToken)
             {
-                var result = await _context.Manufacturers
-                    .AddAsync(new Manufacturer {Name = request.Name}, cancellationToken);
+                var result = await _context.ProductPhotos.AddAsync(
+                    new ProductPhoto {ProductId = request.ProductId, Path = request.Path}, cancellationToken);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return Unit.Value;
-                // return _mapper.Map<ManufacturerLookupDto>(result.Entity);
+                // return _mapper.Map<ProductPhotoLookupDto>(result.Entity);
             }
         }
     }

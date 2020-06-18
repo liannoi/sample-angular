@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SampleAngular.Application.Common;
+using SampleAngular.Application.Common.Interfaces;
 using SampleAngular.Application.Common.Pagings;
-using SampleAngular.Infrastructure.Common.Paging;
+using SampleAngular.Infrastructure.Common.Pagings;
 using SampleAngular.Infrastructure.Persistence;
 
 namespace SampleAngular.Infrastructure

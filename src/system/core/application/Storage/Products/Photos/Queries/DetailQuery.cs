@@ -5,7 +5,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SampleAngular.Application.Common;
+using SampleAngular.Application.Common.Interfaces;
 using SampleAngular.Application.Storage.Products.Photos.Models;
 
 namespace SampleAngular.Application.Storage.Products.Photos.Queries

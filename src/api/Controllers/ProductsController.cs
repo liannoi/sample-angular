@@ -2,14 +2,17 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SampleAngular.Application.Storage.Products.Core.Commands;
+using SampleAngular.Application.Storage.Products.Core.Commands.Create;
+using SampleAngular.Application.Storage.Products.Core.Commands.Delete;
+using SampleAngular.Application.Storage.Products.Core.Commands.Update;
 using SampleAngular.Application.Storage.Products.Core.Models;
 using SampleAngular.Application.Storage.Products.Core.Queries;
-using SampleAngular.Infrastructure.Common.Paging;
-using SampleAngular.Infrastructure.Paging;
+using SampleAngular.Infrastructure.Common.Pagings;
+using SampleAngular.Infrastructure.Pagings;
 
 namespace SampleAngular.WebAPI.Controllers
 {
+    // TODO: Pull the logic from the controller into the appropriate classes.
     public class ProductsController : BaseController
     {
         [HttpGet]

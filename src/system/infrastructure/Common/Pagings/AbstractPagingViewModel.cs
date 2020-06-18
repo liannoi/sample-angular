@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SampleAngular.Application.Common.Pagings;
 
-namespace SampleAngular.Infrastructure.Common.Paging
+namespace SampleAngular.Infrastructure.Common.Pagings
 {
     public abstract class AbstractPagingViewModel<TEntity> : IPagingViewModel<TEntity>
         where TEntity : class, new()

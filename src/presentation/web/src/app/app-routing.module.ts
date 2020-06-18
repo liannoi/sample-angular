@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 import {HomeComponent} from './shared/components/home/home.component';
-import {MsgErrorComponent} from './core/components/msg/msg-error/msg-error.component';
+import {MsgErrorComponent} from './common/components/msg/msg-error/msg-error.component';
 import {ManufacturerListComponent} from './manufacturers/manufacturer-list/manufacturer-list.component';
 import {ProductListComponent} from './products/product-list/product-list.component';
 import {ProductComponent} from './products/product/product.component';
