@@ -3,12 +3,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using SampleAngular.Application.Common;
+using SampleAngular.Application.Common.Interfaces;
 using SampleAngular.Application.Storage.Manufacturers.Models;
 using SampleAngular.Application.Storage.Products.Photos.Models;
 using SampleAngular.Domain.Entities;
 
-namespace SampleAngular.Application.Storage.Products.Core.Commands
+namespace SampleAngular.Application.Storage.Products.Core.Commands.Create
 {
     public class CreateCommand : IRequest
     {

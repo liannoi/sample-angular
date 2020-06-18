@@ -1,7 +1,7 @@
 using System;
 using SampleAngular.Application.Common.Pagings;
 
-namespace SampleAngular.Infrastructure.Common.Paging
+namespace SampleAngular.Infrastructure.Common.Pagings
 {
     public class PagingDetails : IPagingDetails
     {

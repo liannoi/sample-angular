@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SampleAngular.Domain.Entities;
 
-namespace SampleAngular.Application.Common
+namespace SampleAngular.Application.Common.Interfaces
 {
     public interface ISampleAngularContext
     {

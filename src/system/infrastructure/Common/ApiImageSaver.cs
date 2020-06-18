@@ -2,10 +2,11 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using SampleAngular.Application.Common.Interfaces;
 
-namespace SampleAngular.WebAPI.Infrastructure
+namespace SampleAngular.Infrastructure.Common
 {
-    public class WebImageSaver : IWebImageSaver
+    public class ApiImageSaver : IApiImageSaver
     {
         public async Task SaveAsync(string filePath, IFormFile image)
         {

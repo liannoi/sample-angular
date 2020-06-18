@@ -9,11 +9,12 @@ import {takeUntil} from 'rxjs/operators';
 import {ManufacturerModel} from '../../manufacturers/shared/manufacturer.model';
 import {ManufacturersListViewModel} from '../../manufacturers/shared/manufacturers-list-view.model';
 import {ProductModel} from '../shared/product.model';
+import {NotificationService} from '../../shared/notificationService';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  providers: [ProductsService, ManufacturersService],
+  providers: [ProductsService, ManufacturersService, NotificationService],
 })
 export class ProductComponent implements OnInit, OnDestroy {
   public form: FormGroup;
@@ -22,35 +23,16 @@ export class ProductComponent implements OnInit, OnDestroy {
   public manufacturers: ManufacturerModel[];
   private stop$ = new Subject<void>();
 
-  constructor(private activatedRoute: ActivatedRoute, private productsService: ProductsService, private manufacturerService: ManufacturersService, private router: Router) {
+  constructor(private activatedRoute: ActivatedRoute,
+              private productsService: ProductsService,
+              private manufacturerService: ManufacturersService,
+              private router: Router) {
   }
 
   public ngOnInit() {
-    this.form = new FormGroup({
-      name: new FormControl(''),
-      productNumber: new FormControl(''),
-      manufacturer: new FormGroup({
-        manufacturerId: new FormControl(''),
-        name: new FormControl(''),
-      }),
-    });
-
-    this.manufacturerService.getAll(1, 200)
-      .pipe(takeUntil(this.stop$))
-      .subscribe((result: ManufacturersListViewModel) => this.manufacturers = result.manufacturers, error => console.log(error));
-
-    this.activatedRoute.params.forEach((params: Params) => {
-      let id = params['id'];
-
-      if (id == 0) {
-        this.initializeInputs();
-        return;
-      }
-
-      this.productsService.getById(id)
-        .pipe(takeUntil(this.stop$))
-        .subscribe((result: ProductModel) => this.initializeInputs(result), error => console.log(error));
-    });
+    this.initializeForm();
+    this.fetchManufacturers();
+    this.prepareInputs();
   }
 
   public ngOnDestroy() {
@@ -76,6 +58,38 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   public header(): string {
     return this.model.productId == 0 ? 'Create product' : 'Update product';
+  }
+
+  private prepareInputs() {
+    this.activatedRoute.params.forEach((params: Params) => {
+      let id = params['id'];
+
+      if (id == 0) {
+        this.initializeInputs();
+        return;
+      }
+
+      this.productsService.getById(id)
+        .pipe(takeUntil(this.stop$))
+        .subscribe((result: ProductModel) => this.initializeInputs(result), error => console.log(error));
+    });
+  }
+
+  private fetchManufacturers() {
+    this.manufacturerService.getAll(1, 200)
+      .pipe(takeUntil(this.stop$))
+      .subscribe((result: ManufacturersListViewModel) => this.manufacturers = result.manufacturers, error => console.log(error));
+  }
+
+  private initializeForm() {
+    this.form = new FormGroup({
+      name: new FormControl(''),
+      productNumber: new FormControl(''),
+      manufacturer: new FormGroup({
+        manufacturerId: new FormControl(''),
+        name: new FormControl(''),
+      }),
+    });
   }
 
   private prepareModel() {

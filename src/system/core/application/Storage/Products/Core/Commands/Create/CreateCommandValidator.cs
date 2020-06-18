@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace SampleAngular.Application.Storage.Products.Core.Commands
+namespace SampleAngular.Application.Storage.Products.Core.Commands.Create
 {
     public class CreateCommandValidator : AbstractValidator<CreateCommand>
     {

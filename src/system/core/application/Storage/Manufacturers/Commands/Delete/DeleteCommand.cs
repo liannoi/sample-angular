@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SampleAngular.Application.Common;
+using SampleAngular.Application.Common.Interfaces;
 
-namespace SampleAngular.Application.Storage.Manufacturers.Commands
+namespace SampleAngular.Application.Storage.Manufacturers.Commands.Delete
 {
     public class DeleteCommand : IRequest
     {

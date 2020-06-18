@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SampleAngular.Application.Common;
+using SampleAngular.Application.Common.Interfaces;
 using SampleAngular.Application.Storage.Manufacturers.Models;
 using SampleAngular.Application.Storage.Products.Photos.Models;
 
-namespace SampleAngular.Application.Storage.Products.Core.Commands
+namespace SampleAngular.Application.Storage.Products.Core.Commands.Update
 {
     public class UpdateCommand : IRequest
     {

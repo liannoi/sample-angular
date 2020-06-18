@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 
-import {AbstractApiService} from '../../core/services/api/abstract-api.service';
+import {AbstractApiService} from '../../common/services/abstract-api.service';
 import {productsEndpoint} from '../../shared/addresses.consts';
 import {ProductsListViewModel} from './products-list-view.model';
 import {ProductModel} from './product.model';

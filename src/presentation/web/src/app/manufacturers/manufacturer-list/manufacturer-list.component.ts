@@ -9,12 +9,14 @@ import Swal, {SweetAlertResult} from 'sweetalert2';
 
 import {ManufacturersService} from '../shared/manufacturers.service';
 import {ManufacturersListViewModel} from '../shared/manufacturers-list-view.model';
+import {NotificationService} from '../../shared/notificationService';
+import {receiveNotificationMethod} from '../../shared/addresses.consts';
 
 @Component({
   selector: 'app-manufacturer-list',
   templateUrl: './manufacturer-list.component.html',
   styleUrls: ['./manufacturer-list.component.css'],
-  providers: [ManufacturersService],
+  providers: [ManufacturersService, NotificationService],
 })
 export class ManufacturerListComponent implements OnInit, OnDestroy {
   public faPen = faPen;
@@ -22,12 +24,29 @@ export class ManufacturerListComponent implements OnInit, OnDestroy {
   public viewModel: ManufacturersListViewModel;
   private stop$ = new Subject<void>();
 
-  constructor(private titleService: Title, private manufacturersService: ManufacturersService, private router: Router) {
+  constructor(private titleService: Title,
+              private manufacturersService: ManufacturersService,
+              private router: Router,
+              private notificationService: NotificationService) {
     this.titleService.setTitle('Manufacturers - Sample Angular');
   }
 
-  public ngOnInit() {
-    this.refreshViewModel();
+  public async ngOnInit() {
+    let isRefreshed = false;
+
+    this.notificationService.connection.on(receiveNotificationMethod, (data: any) => {
+      let fined = this.viewModel.manufacturers.find(value => value.manufacturerId == data);
+
+      this.manufacturersService.getById(data)
+        .pipe(takeUntil(this.stop$))
+        .subscribe((res) => fined.name = res.name, error => console.error(error));
+
+      isRefreshed = true;
+    });
+
+    await this.notificationService.run();
+
+    if (!isRefreshed) this.refreshViewModel();
   }
 
   public ngOnDestroy() {

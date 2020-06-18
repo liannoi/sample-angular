@@ -1,4 +1,4 @@
-import {PaginationModel} from '../../core/components/pagination/pagination.model';
+import {PaginationModel} from '../../common/components/paging/pagination.model';
 import {ProductModel} from './product.model';
 
 export interface ProductsListViewModel {
