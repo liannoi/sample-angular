@@ -5,22 +5,20 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SampleAngular.Application.Storage.ProductPhotos;
-using SampleAngular.Application.Storage.ProductPhotos.Commands.Create;
-using SampleAngular.Application.Storage.ProductPhotos.Commands.Delete;
-using SampleAngular.Application.Storage.ProductPhotos.Queries.AsList;
-using SampleAngular.Application.Storage.ProductPhotos.Queries.AsList.ByProduct;
+using SampleAngular.Application.Storage.Products.Photos.Commands;
+using SampleAngular.Application.Storage.Products.Photos.Models;
+using SampleAngular.Application.Storage.Products.Photos.Queries;
 using SampleAngular.WebAPI.Infrastructure;
 
 namespace SampleAngular.WebAPI.Controllers
 {
     public class ProductPhotosController : BaseController
     {
-        private readonly IApiImageSaver _apiImageSaver;
+        private readonly IWebImageSaver _webImageSaver;
 
-        public ProductPhotosController(IApiImageSaver apiImageSaver)
+        public ProductPhotosController(IWebImageSaver webImageSaver)
         {
-            _apiImageSaver = apiImageSaver;
+            _webImageSaver = webImageSaver;
         }
 
         /// <summary>
@@ -31,11 +29,11 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductPhotosListViewModel>> GetAllByProduct(int id)
+        public async Task<ActionResult<ListViewModel>> GetAllByProduct(int id)
         {
             try
             {
-                return Ok(await Mediator.Send(new GetProductPhotosAsListByProductQuery {ProductId = id}));
+                return Ok(await Mediator.Send(new ListQuery.ByProduct {ProductId = id}));
             }
             catch (ValidationException e)
             {
@@ -50,11 +48,11 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductPhotosListViewModel>> GetAll()
+        public async Task<ActionResult<ListViewModel>> GetAll()
         {
             try
             {
-                return Ok(await Mediator.Send(new GetProductPhotosAsListQuery()));
+                return Ok(await Mediator.Send(new ListQuery()));
             }
             catch (ValidationException e)
             {
@@ -65,18 +63,18 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpPost("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductPhotoLookupDto>> Upload(int id)
+        public async Task<ActionResult<ProductPhotoDto>> Upload(int id)
         {
             try
             {
                 var file = Request.Form.Files.FirstOrDefault() ?? throw new ArgumentException();
-                var uniqueFileName = _apiImageSaver.GenerateUniqueFileName(file);
-                await _apiImageSaver.SaveImageAsync(GeneratePath(uniqueFileName), file);
+                var uniqueFileName = _webImageSaver.Unique(file);
+                await _webImageSaver.SaveAsync(GeneratePath(uniqueFileName), file);
 
-                return Ok(await Mediator.Send(new CreateProductPhotoCommand
+                return Ok(await Mediator.Send(new CreateCommand
                 {
                     ProductId = id,
-                    Path = _apiImageSaver.GenerateDatabasePath(ApiDefaults.ProductPhotosPath, uniqueFileName)
+                    Path = _webImageSaver.Path(ApiDefaults.ProductPhotosPath, uniqueFileName)
                 }));
             }
             catch (ValidationException e)
@@ -88,11 +86,11 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductPhotoLookupDto>> Delete(int id)
+        public async Task<ActionResult<ProductPhotoDto>> Delete(int id)
         {
             try
             {
-                return Ok(await Mediator.Send(new DeleteProductPhotoCommand {PhotoId = id}));
+                return Ok(await Mediator.Send(new DeleteCommand {PhotoId = id}));
             }
             catch (ValidationException e)
             {

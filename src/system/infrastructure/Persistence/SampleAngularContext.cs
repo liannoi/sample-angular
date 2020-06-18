@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using SampleAngular.Application.Common.Interfaces;
+using SampleAngular.Application.Common;
 using SampleAngular.Domain.Entities;
 
 namespace SampleAngular.Infrastructure.Persistence

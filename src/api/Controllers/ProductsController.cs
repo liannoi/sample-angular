@@ -2,14 +2,11 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SampleAngular.Application.Storage.Products;
-using SampleAngular.Application.Storage.Products.Commands.Create;
-using SampleAngular.Application.Storage.Products.Commands.Delete;
-using SampleAngular.Application.Storage.Products.Commands.Update;
-using SampleAngular.Application.Storage.Products.Queries.Get;
-using SampleAngular.Application.Storage.Products.Queries.Get.AsList;
-using SampleAngular.Infrastructure.Common.Pagination;
-using SampleAngular.Infrastructure.Pagination;
+using SampleAngular.Application.Storage.Products.Core.Commands;
+using SampleAngular.Application.Storage.Products.Core.Models;
+using SampleAngular.Application.Storage.Products.Core.Queries;
+using SampleAngular.Infrastructure.Common.Paging;
+using SampleAngular.Infrastructure.Paging;
 
 namespace SampleAngular.WebAPI.Controllers
 {
@@ -18,13 +15,13 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductsListViewModel>> GetAll(int page = 1, int limit = 10)
+        public async Task<ActionResult<ListViewModel>> GetAll(int page = 1, int limit = 10)
         {
             try
             {
-                return Ok(await Mediator.Send(new GetProductsAsListQuery
+                return Ok(await Mediator.Send(new ListQuery
                 {
-                    Info = new ProductsPagingViewModel
+                    Info = new ProductPagingViewModel
                         {PagingDetails = new PagingDetails {CurrentPage = page, ItemsPerPage = limit}}
                 }));
             }
@@ -37,7 +34,7 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductLookupDto>> Create([FromBody] CreateProductCommand command)
+        public async Task<ActionResult<DetailViewModel>> Create([FromBody] CreateCommand command)
         {
             try
             {
@@ -52,11 +49,11 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductLookupDto>> GetById(int id)
+        public async Task<ActionResult<DetailViewModel>> GetById(int id)
         {
             try
             {
-                return Ok(await Mediator.Send(new GetProductQuery {ProductId = id}));
+                return Ok(await Mediator.Send(new DetailQuery {ProductId = id}));
             }
             catch (ValidationException e)
             {
@@ -67,7 +64,7 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductLookupDto>> Update(int id, [FromBody] UpdateProductCommand command)
+        public async Task<ActionResult<DetailViewModel>> Update(int id, [FromBody] UpdateCommand command)
         {
             try
             {
@@ -83,11 +80,11 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductLookupDto>> Delete(int id)
+        public async Task<ActionResult<DetailViewModel>> Delete(int id)
         {
             try
             {
-                return Ok(await Mediator.Send(new DeleteProductCommand {ProductId = id}));
+                return Ok(await Mediator.Send(new DeleteCommand {ProductId = id}));
             }
             catch (ValidationException e)
             {

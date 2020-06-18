@@ -2,14 +2,11 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SampleAngular.Application.Storage.Manufacturers;
-using SampleAngular.Application.Storage.Manufacturers.Commands.Create;
-using SampleAngular.Application.Storage.Manufacturers.Commands.Delete;
-using SampleAngular.Application.Storage.Manufacturers.Commands.Update;
-using SampleAngular.Application.Storage.Manufacturers.Queries.Get;
-using SampleAngular.Application.Storage.Manufacturers.Queries.Get.AsList;
-using SampleAngular.Infrastructure.Common.Pagination;
-using SampleAngular.Infrastructure.Pagination;
+using SampleAngular.Application.Storage.Manufacturers.Commands;
+using SampleAngular.Application.Storage.Manufacturers.Models;
+using SampleAngular.Application.Storage.Manufacturers.Queries;
+using SampleAngular.Infrastructure.Common.Paging;
+using SampleAngular.Infrastructure.Paging;
 
 namespace SampleAngular.WebAPI.Controllers
 {
@@ -18,13 +15,13 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ManufacturersListViewModel>> GetAll(int page = 1, int limit = 10)
+        public async Task<ActionResult<ListViewModel>> GetAll(int page = 1, int limit = 10)
         {
             try
             {
-                return Ok(await Mediator.Send(new GetManufacturersAsListQuery
+                return Ok(await Mediator.Send(new ListQuery
                 {
-                    Info = new ManufacturersPagingViewModel
+                    Info = new ManufacturerPagingViewModel
                         {PagingDetails = new PagingDetails {CurrentPage = page, ItemsPerPage = limit}}
                 }));
             }
@@ -37,7 +34,8 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ManufacturerLookupDto>> Create([FromBody] CreateManufacturerCommand command)
+        public async Task<ActionResult<DetailViewModel>> Create(
+            [FromBody] CreateCommand command)
         {
             try
             {
@@ -52,11 +50,11 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ManufacturerLookupDto>> GetById(int id)
+        public async Task<ActionResult<DetailViewModel>> GetById(int id)
         {
             try
             {
-                return Ok(await Mediator.Send(new GetManufacturerQuery {ManufacturerId = id}));
+                return Ok(await Mediator.Send(new DetailQuery {ManufacturerId = id}));
             }
             catch (ValidationException e)
             {
@@ -67,8 +65,8 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ManufacturerLookupDto>> Update(int id,
-            [FromBody] UpdateManufacturerCommand command)
+        public async Task<ActionResult<DetailViewModel>> Update(int id,
+            [FromBody] UpdateCommand command)
         {
             try
             {
@@ -84,11 +82,11 @@ namespace SampleAngular.WebAPI.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ManufacturerLookupDto>> Delete(int id)
+        public async Task<ActionResult<DetailViewModel>> Delete(int id)
         {
             try
             {
-                return Ok(await Mediator.Send(new DeleteManufacturerCommand {ManufacturerId = id}));
+                return Ok(await Mediator.Send(new DeleteCommand {ManufacturerId = id}));
             }
             catch (ValidationException e)
             {
