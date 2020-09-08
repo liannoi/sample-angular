@@ -27,5 +27,5 @@
     <ItemGroup>
       <Folder Include="res\product-photos" />
     </ItemGroup>
-    
+
 </Project>
